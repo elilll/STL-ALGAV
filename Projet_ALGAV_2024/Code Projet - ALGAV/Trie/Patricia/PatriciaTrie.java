@@ -115,6 +115,7 @@ public class PatriciaTrie {
             }
 
         }
+        
         return currentNode.isEndNode();
     }
 

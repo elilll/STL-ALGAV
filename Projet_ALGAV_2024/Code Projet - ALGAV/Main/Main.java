@@ -1,20 +1,22 @@
 package Main;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Map;
 
 import Trie.Patricia.PatriciaTrie;
+import Trie.Patricia.TrieNode;
 import Util.ConvertJson;
 
 public class Main {
+
     public static void main(String[] args) {
-        File exemple = new File("Samples/formatTxt/ExemplePatricia.txt");
+        /*File exemple = new File("Code Projet - ALGAV/Samples/formatTxt/ExemplePatricia.txt");
+
+        System.out.println("Chemin absolu : " + exemple.getAbsolutePath());
 
         if(exemple.exists()){
             try (java.util.Scanner scanner = new java.util.Scanner(exemple)) {
+                System.out.println("main try");
                 PatriciaTrie trie = new PatriciaTrie();
                 while(scanner.hasNext()){
                     trie.insertSentence(scanner.nextLine());
@@ -22,24 +24,19 @@ public class Main {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } 
+        } */
+
+        System.out.println("main");
+        File patFile = new File("Code Projet - ALGAV/Samples/formatJson/patTrie1.json");
+
+        PatriciaTrie trie = ConvertJson.convertJsonToPatricia(patFile);
+        ConvertJson.convertPatriciaToJson(trie);
 
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("Samples/formatJson/pat.json"))) {
-            StringBuilder jsonString = new StringBuilder();
-            String line;
-            while ((line = reader.readLine())!= null) {
-                jsonString.append(line);
-            }
-
-            Map<String, Object> resultMap = ConvertJson.parseJsonString(jsonString.toString());
+        for(Map.Entry<String,TrieNode> children : trie.getRoot().getChildren().entrySet()){
+            System.out.println("key :"+children.getKey());
         
-        // Afficher la Map résultante
-            for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
-                System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-            }
-        } catch (IOException e){
-            e.getStackTrace();
+            System.out.println(children.getValue());
         }
     }
 }

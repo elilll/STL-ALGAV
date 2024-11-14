@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import Trie.Hybrid.HybridTrie;
@@ -12,7 +11,7 @@ import Trie.Patricia.PatriciaTrie;
 import Trie.Patricia.TrieNode;
 
 public class ConvertJson {
-    private static String FILESTRINGPAT = "Samples/formatJson/pat.json";
+    private static String FILESTRINGPAT = "Code Projet - ALGAV/Samples/formatJson/pat.json";
     private static void toChildrenString(int length ,TrieNode node, StringBuilder result,String prefix){
         int i=0;
         boolean getchildren = false;
@@ -99,84 +98,6 @@ public class ConvertJson {
         return;
     }
 
-    public static Map<String, Object> parseJsonString(String jsonString) {
-        Map<String, Object> map = new HashMap<>();
-
-        // Supprimer les accolades de début et de fin
-        jsonString = jsonString.trim();
-        if (jsonString.startsWith("{") && jsonString.endsWith("}")) {
-            jsonString = jsonString.substring(1, jsonString.length() - 1);
-        }
-
-        int i = 0;
-        while (i < jsonString.length()) {
-            // Ignorer les espaces blancs
-            i = skipWhitespace(jsonString, i);
-            
-            // Lire la clé
-            if (jsonString.charAt(i) == '"') {
-                int keyStart = i + 1;
-                int keyEnd = jsonString.indexOf('"', keyStart);
-                String key = jsonString.substring(keyStart, keyEnd);
-                i = keyEnd + 1;
-
-                // Avancer jusqu'au prochain :
-                while (i < jsonString.length() && jsonString.charAt(i) != ':') {
-                    i++;
-                }
-                i++; // Passer le deux-points
-
-                // Lire la valeur
-                i = skipWhitespace(jsonString, i);
-                if (jsonString.charAt(i) == '"') {  // Valeur simple sous forme de chaîne
-                    int valueStart = i + 1;
-                    int valueEnd = jsonString.indexOf('"', valueStart);
-                    String value = jsonString.substring(valueStart, valueEnd);
-                    map.put(key, value);
-                    i = valueEnd + 1;
-                } else if (jsonString.charAt(i) == '{') {  // Valeur sous forme d'objet JSON
-                    int braceStart = i;
-                    int braceEnd = findClosingBrace(jsonString, braceStart);
-                    String nestedJson = jsonString.substring(braceStart, braceEnd + 1);
-                    map.put(key, parseJsonString(nestedJson));
-                    i = braceEnd + 1;
-                }
-
-                // Aller au prochain élément
-                i = skipWhitespace(jsonString, i);
-                if (i < jsonString.length() && jsonString.charAt(i) == ',') {
-                    i++;
-                }
-            }
-        }
-
-        return map;
-    }
-
-    // Méthode pour ignorer les espaces
-    private static int skipWhitespace(String jsonString, int i) {
-        while (i < jsonString.length() && Character.isWhitespace(jsonString.charAt(i))) {
-            i++;
-        }
-        return i;
-    }
-
-    // Trouver la fin de l'accolade fermante pour un objet imbriqué
-    private static int findClosingBrace(String jsonString, int openBraceIndex) {
-        int count = 0;
-        for (int i = openBraceIndex; i < jsonString.length(); i++) {
-            if (jsonString.charAt(i) == '{') {
-                count++;
-            } else if (jsonString.charAt(i) == '}') {
-                count--;
-                if (count == 0) {
-                    return i;
-                }
-            }
-        }
-        return -1; // Si la syntaxe JSON est incorrecte
-    }
-
     public static PatriciaTrie convertJsonToPatricia(File file) {
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder json = new StringBuilder();
@@ -185,8 +106,11 @@ public class ConvertJson {
                 json.append(line);
             }
 
+            System.out.println("Convert json to patricia");
+
             PatriciaTrie pat = new PatriciaTrie();
 
+            ParseJson.parseJsonToPatriciaTrieNode(json.toString(),pat.getRoot());
 
             return pat;
         } catch (IOException e){

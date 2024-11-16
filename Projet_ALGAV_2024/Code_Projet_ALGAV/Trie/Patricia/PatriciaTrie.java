@@ -15,7 +15,7 @@ public class PatriciaTrie {
     }
 
     /* Primitives insert du Particia Trie */
-    /* Méthode qui permet d'insérer un mot dans un arbre radix (Patricia Trie) */
+    /* Méthode qui permet d'insérer un mot dans un arbre Patricia (Patricia Trie) */
     public void insertWord(String word) {
         byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
@@ -59,9 +59,7 @@ public class PatriciaTrie {
 
                         return;
                     }
-
                 }
-
             }
 
             if (!found) {
@@ -78,7 +76,6 @@ public class PatriciaTrie {
     /* Méthode qui insert chaque mot d'une phrase dans un arbre Patricia, puis écrit l'arbre au format .json dans le fichier pat.json */
     public void insertSentence(String sentence){
         for(String word : sentence.split(" ")){
-            System.out.println(word);
             insertWord(word);
         }
 
@@ -111,9 +108,7 @@ public class PatriciaTrie {
                 }else{
                     return false;
                 }
-
             }
-
         }
         
         return currentNode.isEndNode();

@@ -11,7 +11,7 @@ import Trie.Patricia.PatriciaTrie;
 import Trie.Patricia.TrieNode;
 
 public class ConvertJson {
-    private static String FILESTRINGPAT = "Code Projet - ALGAV/Samples/formatJson/pat.json";
+    private static String FILESTRINGPAT = "Samples/formatJson/pat.json";
     private static void toChildrenString(int length ,TrieNode node, StringBuilder result,String prefix){
         int i=0;
         boolean getchildren = false;
@@ -109,11 +109,10 @@ public class ConvertJson {
             System.out.println("Convert json to patricia");
 
             PatriciaTrie pat = new PatriciaTrie();
-
             ParseJson.parseJsonToPatriciaTrieNode(json.toString(),pat.getRoot());
 
             return pat;
-        } catch (IOException e){
+        } catch (Exception e) {
             e.getStackTrace();
         }
 

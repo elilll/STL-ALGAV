@@ -1,5 +1,0 @@
-car
-cat
-cart
-dog
-bat

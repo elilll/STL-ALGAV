@@ -1,0 +1,11 @@
+app
+application
+apple
+bounds
+bound
+car
+cat
+cart
+bat
+dog
+doggy

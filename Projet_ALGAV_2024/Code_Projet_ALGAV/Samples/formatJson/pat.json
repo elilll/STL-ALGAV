@@ -1,0 +1,83 @@
+{
+	"label" : "",
+	"is_end_of_word" : false, 
+	"children" : {
+		"a": {
+			"label" : "app",
+			"is_end_of_word" : true, 
+			"children" : {
+				"l": {
+					"label" : "l",
+					"is_end_of_word" : false, 
+					"children" : {
+						"i": {
+							"label" : "ication",
+							"is_end_of_word" : true, 
+							"children" : {}
+						},
+						"e": {
+							"label" : "e",
+							"is_end_of_word" : true, 
+							"children" : {}
+						}
+					}
+				}
+			}
+		},
+		"b": {
+			"label" : "b",
+			"is_end_of_word" : false, 
+			"children" : {
+				"a": {
+					"label" : "at",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"o": {
+					"label" : "ound",
+					"is_end_of_word" : true, 
+					"children" : {
+						"s": {
+							"label" : "s",
+							"is_end_of_word" : true, 
+							"children" : {}
+						}
+					}
+				}
+			}
+		},
+		"d": {
+			"label" : "dog",
+			"is_end_of_word" : true, 
+			"children" : {
+				"g": {
+					"label" : "gy",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"c": {
+			"label" : "ca",
+			"is_end_of_word" : false, 
+			"children" : {
+				"r": {
+					"label" : "r",
+					"is_end_of_word" : true, 
+					"children" : {
+						"t": {
+							"label" : "t",
+							"is_end_of_word" : true, 
+							"children" : {}
+						}
+					}
+				},
+				"t": {
+					"label" : "t",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		}
+	}
+}

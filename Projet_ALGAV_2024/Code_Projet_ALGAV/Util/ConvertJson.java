@@ -1,14 +1,13 @@
 package Util;
+import Trie.Hybrid.HybridTrie;
+import Trie.Patricia.PatriciaTrie;
+import Trie.Patricia.TrieNode;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
-
-import Trie.Hybrid.HybridTrie;
-import Trie.Patricia.PatriciaTrie;
-import Trie.Patricia.TrieNode;
 
 public class ConvertJson {
     private static void patriciaTrieString(String tab ,TrieNode node, StringBuilder result,String prefix){
@@ -94,6 +93,23 @@ public class ConvertJson {
         return null;
     }
 
-    public void convertHybridToJson(HybridTrie hybrid) {
+    /**
+     * Méthode qui convertit le trie hybride au format json
+     * @param hybrid : le trie hybride à convertir au format json
+     */
+    public static void convertHybridToJson(HybridTrie hybrid) {
+        //TODO
+        //Oriane
+    }
+
+    /**
+     * Méthode qui convertit un format json en objet HybridTrie
+     * @param file : le fichier .json à lire
+     * @return : le trie hybride obtenu par la conversion du fichier.json
+     */
+    public static HybridTrie convertJsonToHybridTrie(File file){
+        //TODO
+        //Oriane
+        return null;
     }
 }

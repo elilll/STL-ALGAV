@@ -211,31 +211,113 @@ public class HybridTrie {
 
     /**
      * Fonction qui calcule la hauteur de l’arbre
+     * Rappel : hauteur de l'arbre = distance maximale entre la racine et la feuille la plus profonde
      * @return : hauteur du trie
      */
     public int hauteur(){
-        //TODO
-        return 0;
+        return hauteurRec(root);
     }
 
     /**
-     *  Fonction qui calcule la profondeur moyenne des feuilles de l’arbre
-     * @return : profondeur moyenne des feuilles de l'arbre
+     * Fonction récursive pour calculer la hauteur du trie ( utilisée dans hauteur() )
+     * @param node : le noeud sur lequel on travaille
+     * @return : 1 + la plus grande hauteur parmi ses fils
      */
-    public int profondeurMoyenne(){
-        //TODO
-        return 0;
+    private int hauteurRec(HybridTrieNode node){
+        if (node == null){
+            return 0;
+        }
+
+        int hauteurInf = hauteurRec(node.getPointeurs()[HybridTrieNode.INF]);
+        int hauteurEq = hauteurRec(node.getPointeurs()[HybridTrieNode.EQ]);
+        int hauteurSup = hauteurRec(node.getPointeurs()[HybridTrieNode.SUP]);
+
+        return 1 + Math.max(hauteurInf, Math.max(hauteurEq, hauteurSup));
     }
+
+    /**
+     * Fonction qui calcule la profondeur moyenne des feuilles de l'arbre
+     * Calcul : profondeur moyenne = somme des profondeurs des feuilles / nombre de feuilles
+     * Principe : on a un tableau result pour stocker la somme des profondeurs des feuilles (dans result[0])
+     * et pour stocker le nombre de feuilles rencontrées (dans rersult[1]).
+     * @return
+     */
+    public int profondeurMoyenne() {
+        int[] result = new int[2];
+        profondeurMoyenneRec(root, 0, result);
+        
+        if (result[1] == 0) {
+            return 0; // Pour ne pas diviser par 0 (cas où on n'a pas de feuilles == trie vide)
+        }
+        return result[0] / result[1];
+    }
+    
+    /**
+     * Fonction récursive pour calculer la profondeur moyenne des feuilles
+     * @param node : le noeud courant sur lequel on travaille
+     * @param profondeur : la profondeur du noeud courant
+     * @param result : tableau qui stocke la somme des profondeurs et le nombre de feuilles
+     */
+    private void profondeurMoyenneRec(HybridTrieNode node, int profondeur, int[] result) {
+        if (node == null) {
+            return;
+        }
+    
+        // On vérifie si le noeud courant est une feuille ou pas
+        if (node.getPointeurs()[HybridTrieNode.INF] == null &&
+            node.getPointeurs()[HybridTrieNode.EQ] == null &&
+            node.getPointeurs()[HybridTrieNode.SUP] == null) {
+            
+            result[0] += profondeur; 
+            result[1]++;             
+        }
+    
+        // On parcourt récursivement les trois sous-arbres du noeud courant
+        profondeurMoyenneRec(node.getPointeurs()[HybridTrieNode.INF], profondeur + 1, result); // Inf
+        profondeurMoyenneRec(node.getPointeurs()[HybridTrieNode.EQ], profondeur + 1, result);  // Eq
+        profondeurMoyenneRec(node.getPointeurs()[HybridTrieNode.SUP], profondeur + 1, result); // Sup
+    }
+    
 
     /**
      * Fonction qui prend un mot A en argument et qui indique de combien de mots du dictionnaire 
      * le mot A est préfixe. Le mot A n'est pas forcément un mot de l'arbre.
+     * Principe : 1) On trouve le noeud correspondant au préfixe (qui n'est pas forcément un mot du trie, donc on ne peut pas utiliser val ici)
+     * 2) 
      * @param word : notre préfixe
      * @return : le nombre de mot dont A est le préfixe
      */
     public int prefixe(String word){
-        //TODO
-        return 0;
+        HybridTrieNode node = goToNodeFromWord(root, word, 0);
+
+        if (node == null){
+            return 0;
+        }
+        
+        return comptageMotsRec(node.getPointeurs()[HybridTrieNode.EQ]);
+    }
+
+    /**
+     * Fonction de recherche récursive pour aller directement au noeud qui correspond à word ( utilisée dans prefixe() )
+     * @param node : le noeud courant sur lequel on travaille
+     * @param word : le mot à rechercher
+     * @param charIndex : le numéro du caractère de word sur lequel on travaille (lettre par lettre)
+     * @return
+     */
+    private HybridTrieNode goToNodeFromWord(HybridTrieNode node, String word, int charIndex){
+        char currentChar = word.charAt(charIndex);
+
+        if (node == null | charIndex == word.length()) { // Si on a parcouru tout le préfixe, on s'arrête
+            return node;
+        }
+
+        if (currentChar < node.getCar()) {
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);  // Inf
+        } else if (currentChar > node.getCar()) {
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
+        } else { // currentChar == node.getCar()
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
+        }
     }
 
     /**

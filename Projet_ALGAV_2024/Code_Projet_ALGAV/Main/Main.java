@@ -1,50 +1,70 @@
 package Main;
 
-import java.io.File;
-import java.util.Scanner;
-
+import Trie.Hybrid.HybridTrie;
 import Trie.Patricia.PatriciaTrie;
 import Util.Constant;
 import Util.ConvertJson;
+import java.io.File;
+import java.util.Scanner;
 
 public class Main {
 
     private static void insert(File words, String modeTrie){
-        if(modeTrie.equals("0")){
-            try (Scanner scan = new Scanner(words)) {
-                PatriciaTrie trie = new PatriciaTrie();
-        
-                while(scan.hasNext()){
-                    trie.insertWord(scan.nextLine());
+        switch (modeTrie) {
+            case "0" -> {
+                // Patricia tries
+                try (Scanner scan = new Scanner(words)) {
+                    PatriciaTrie trie = new PatriciaTrie();
+                    
+                    while(scan.hasNext()){
+                        trie.insertWord(scan.nextLine());
+                    }
+                    ConvertJson.convertPatriciaToJson(trie);
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-                ConvertJson.convertPatriciaToJson(trie);
-            }catch(Exception e){
-                e.printStackTrace();
             }
-        }else if(modeTrie.equals("1")){
 
-        }else{
-            throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) "); 
+            case "1" -> {
+                // Hybrid tries
+                try (Scanner scan = new Scanner(words)) {
+                    int i = 0;
+                    HybridTrie trie = new HybridTrie();
+                    while(scan.hasNext()){
+                        trie.insert(scan.nextLine(), i++);
+                    }
+                    ConvertJson.convertHybridToJson(trie);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            default -> throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) ");
         }
     }
 
     private static void delete(File words, String modeTrie){
-        if(modeTrie.equals("0")){
-            try (Scanner scan = new Scanner(words)) {
-                PatriciaTrie trie = ConvertJson.convertJsonToPatricia(new File(Constant.PATJSONFILE));
-        
-                while(scan.hasNext()){
-                    trie.deleteWord(scan.nextLine());
+        switch (modeTrie) {
+            case "0" -> {
+                try (Scanner scan = new Scanner(words)) {
+                    PatriciaTrie trie = ConvertJson.convertJsonToPatricia(new File(Constant.PATJSONFILE));
+                    
+                    while(scan.hasNext()){
+                        trie.deleteWord(scan.nextLine());
+                    }
+                    
+                    ConvertJson.convertPatriciaToJson(trie);
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-        
-                ConvertJson.convertPatriciaToJson(trie);
-            }catch(Exception e){
-                e.printStackTrace();
             }
-        }else if(modeTrie.equals("1")){
 
-        }else{
-            throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) "); 
+            case "1" -> {
+                //TODO
+                //Oriane
+            }
+            
+            default -> throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) ");
         }
         
     }
@@ -67,7 +87,7 @@ public class Main {
             String[] instruction = line.split(" ");
 
             switch (instruction[0]) {
-                case "inserer": case "Inserer" : case "INSERER":
+                case "inserer", "Inserer", "INSERER" -> {
                     if(instruction.length == 3){
                         File file = new File(instruction[2]);
                         if(file.exists()){
@@ -78,8 +98,9 @@ public class Main {
                     }else{
                         throw new IllegalArgumentException("Invalid arguments");
                     }
-                    break;
-                case "supprimer": case"Supprimer": case "SUPPRIMER":
+                }
+
+                case "supprimer", "Supprimer", "SUPPRIMER" -> {
                     if(instruction.length == 3){
                         File file = new File(instruction[2]);
                         if(file.exists()){
@@ -90,9 +111,9 @@ public class Main {
                     }else{
                         throw new IllegalArgumentException("Invalid arguments");
                     }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid instruction: "  + instruction[0]); 
+                }
+
+                default -> throw new IllegalArgumentException("Invalid instruction: "  + instruction[0]); 
             }
         }
     }

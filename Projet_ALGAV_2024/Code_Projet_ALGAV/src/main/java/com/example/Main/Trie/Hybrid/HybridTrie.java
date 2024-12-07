@@ -1,4 +1,4 @@
-package Trie.Hybrid;
+package src.main.java.com.example.Main.Trie.Hybrid;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

@@ -1,13 +1,15 @@
-package Util;
+package src.main.java.com.example.Main.Util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import Trie.Patricia.TrieNode;
+import src.main.java.com.example.Main.Trie.Patricia.PatriciaTrieNode;
+
+
 
 public class ParseJson {
-    public static void parseJsonToPatriciaTrieNode(String json, TrieNode currentNode) throws Exception {
+    public static void parseJsonToPatriciaTrieNode(String json, PatriciaTrieNode currentNode) throws Exception {
         Map<String, Object> map;
         json = json.trim();
         if (json.startsWith("{") && json.endsWith("}")) {
@@ -17,7 +19,7 @@ public class ParseJson {
                     switch(entry.getKey()){
                         case "label": 
                             if(String.valueOf(entry.getValue()).length() >= 1){
-                                TrieNode newNode = new TrieNode();
+                                PatriciaTrieNode newNode = new PatriciaTrieNode();
 
                                 byte[] bytes = String.valueOf(entry.getValue()).getBytes(StandardCharsets.US_ASCII);
                                 for(byte b : bytes){

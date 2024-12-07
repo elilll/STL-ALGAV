@@ -1,21 +1,22 @@
-package Trie.Patricia;
+package src.main.java.com.example.Main.Trie.Patricia;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import Util.ConvertJson;
+import src.main.java.com.example.Main.Util.ConvertJson;
+
 
 public class PatriciaTrie {
-    private TrieNode root;
+    private PatriciaTrieNode root;
 
     /* Constructeur */
     public PatriciaTrie() {
-        root = new TrieNode();
+        root = new PatriciaTrieNode();
     }
 
     /* Getteur */
-    public TrieNode getRoot() {
+    public PatriciaTrieNode getRoot() {
         return this.root;
     }
 
@@ -40,7 +41,7 @@ public class PatriciaTrie {
             }
         }
 
-        TrieNode currentNode = root;
+        PatriciaTrieNode currentNode = root;
         int i = 0;
 
         /*Tant qu'on a pas fini d'inserer le mot, 
@@ -61,10 +62,10 @@ public class PatriciaTrie {
                         found = true;
                         break;
                     }else{
-                        TrieNode tmpNode = currentNode.getChildren().get(edge);
+                        PatriciaTrieNode tmpNode = currentNode.getChildren().get(edge);
                         String remmainingEdge =edge.substring(commonPrefixLength);
 
-                        TrieNode newNode = new TrieNode();
+                        PatriciaTrieNode newNode = new PatriciaTrieNode();
                         newNode.addChild(remmainingEdge, tmpNode);
 
 
@@ -72,7 +73,7 @@ public class PatriciaTrie {
                         currentNode.addChild(word.substring(i, i+commonPrefixLength), newNode);
                     
                         if(i+commonPrefixLength < word.length()){
-                            TrieNode newNodeWord = new TrieNode();
+                            PatriciaTrieNode newNodeWord = new PatriciaTrieNode();
                             newNodeWord.setEndNode(true);
                             newNode.addChild(word.substring(i + commonPrefixLength), newNodeWord);
                         }else{
@@ -85,7 +86,7 @@ public class PatriciaTrie {
             }
 
             if (!found) {
-                TrieNode newNode = new TrieNode();
+                PatriciaTrieNode newNode = new PatriciaTrieNode();
                 newNode.setEndNode(true);
                 currentNode.addChild(word.substring(i), newNode);
                 return;
@@ -99,7 +100,7 @@ public class PatriciaTrie {
 
     /* Méthode qui recherche un mot dans l'arbre Patricia, renvoie vrai s'il y est, faux sinon */
     public boolean search(String word) {
-        TrieNode currentNode = root;
+        PatriciaTrieNode currentNode = root;
         int i = 0;
 
         /*Tant qu'on a pas fini de lire le mot, 
@@ -143,9 +144,9 @@ public class PatriciaTrie {
             }
         }
         
-        TrieNode currentNode = root;
+        PatriciaTrieNode currentNode = root;
         int i = 0;
-        ArrayList<TrieNode> pathWordNode = new ArrayList<TrieNode>();
+        ArrayList<PatriciaTrieNode> pathWordNode = new ArrayList<PatriciaTrieNode>();
         ArrayList<String> pathWordEgde = new ArrayList<String>();
 
         pathWordNode.add(root);
@@ -174,7 +175,7 @@ public class PatriciaTrie {
             }
         }
 
-        TrieNode tmpNode = root;
+        PatriciaTrieNode tmpNode = root;
 
         if(currentNode.isEndNode() && pathWordNode.size() == (pathWordEgde.size() + 1)) {
             for(int j = pathWordNode.size() - 1; 0 <= j; j--){
@@ -200,15 +201,15 @@ public class PatriciaTrie {
         
     }
 
-    private void compress(TrieNode node) {
+    private void compress(PatriciaTrieNode node) {
         if (node == null) return;
 
         for (String key : new HashSet<>(node.getChildren().keySet())) { 
-            TrieNode child = node.getChildren().get(key);
+            PatriciaTrieNode child = node.getChildren().get(key);
             compress(child); 
             if (child.getChildren().size() == 1 && !child.isEndNode()) {
                 String grandChildKey = child.getChildren().keySet().iterator().next();
-                TrieNode grandChild = child.getChildren().get(grandChildKey);
+                PatriciaTrieNode grandChild = child.getChildren().get(grandChildKey);
 
                 String mergedKey = key + grandChildKey.toString();
                 node.addChild(mergedKey, grandChild);

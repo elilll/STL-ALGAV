@@ -1,7 +1,5 @@
-package Util;
-import Trie.Hybrid.HybridTrie;
-import Trie.Patricia.PatriciaTrie;
-import Trie.Patricia.TrieNode;
+package src.main.java.com.example.Main.Util;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,8 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
+import src.main.java.com.example.Main.Trie.Hybrid.HybridTrie;
+import src.main.java.com.example.Main.Trie.Patricia.PatriciaTrie;
+import src.main.java.com.example.Main.Trie.Patricia.PatriciaTrieNode;
+
 public class ConvertJson {
-    private static void patriciaTrieString(String tab ,TrieNode node, StringBuilder result,String prefix){
+    private static void patriciaTrieString(String tab ,PatriciaTrieNode node, StringBuilder result,String prefix){
         /* Label */
         result.append(tab).append("\"label\" : \"").append(prefix).append("\",\n");
 
@@ -27,7 +29,7 @@ public class ConvertJson {
         int i=0;
         boolean getchildren = false;
 
-        for(Map.Entry<String,TrieNode> children : node.getChildren().entrySet()){
+        for(Map.Entry<String,PatriciaTrieNode> children : node.getChildren().entrySet()){
             getchildren=true;
             result.append("\n");
             if(i+1 == node.getChildren().size()){
@@ -52,7 +54,7 @@ public class ConvertJson {
         return;
     }
 
-    private static String formatJsonPatricia(TrieNode root) {
+    private static String formatJsonPatricia(PatriciaTrieNode root) {
         StringBuilder result = new StringBuilder("{\n");
         patriciaTrieString("\t", root, result,"");
         return result.toString() + "}";

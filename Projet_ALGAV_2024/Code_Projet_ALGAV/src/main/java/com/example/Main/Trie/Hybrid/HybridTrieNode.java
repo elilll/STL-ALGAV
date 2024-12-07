@@ -1,4 +1,4 @@
-package Trie.Hybrid;
+package src.main.java.com.example.Main.Trie.Hybrid;
 
 public class HybridTrieNode {
     //Variables globales

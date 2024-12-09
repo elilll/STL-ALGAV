@@ -1,0 +1,1 @@
+Le nombre de mots dans l'arbre : pat.json est 3723

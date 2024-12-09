@@ -1,0 +1,1 @@
+La hauteur de l'arbre : pat.json est 9

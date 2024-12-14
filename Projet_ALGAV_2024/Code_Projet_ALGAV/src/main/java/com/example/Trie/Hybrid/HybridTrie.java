@@ -39,7 +39,9 @@ public class HybridTrie {
             }
         }
         
-        root = insertRec(root, word, 0, index);
+        if(recherche(word) == false){
+            root = insertRec(root, word, 0, index);
+        }
     }
 
     /**

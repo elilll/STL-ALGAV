@@ -35,14 +35,20 @@ public class ParseJson {
                             }
                             break;
                         case "is_end_of_word" : 
-                            if(String.valueOf(entry.getValue()) == "true"){
-                                currentNode.setEndNode(true);
-                            }else if(String.valueOf(entry.getValue()) == "false"){
-                                currentNode.setEndNode(false);
-                            }else{
+                            if(null == String.valueOf(entry.getValue())){
                                 throw new Exception("Value invalide pour 'is_end_of_word' : " + String.valueOf(entry.getValue()));
-                            }
+                            }else switch (String.valueOf(entry.getValue())) {
+                            case "true":
+                                currentNode.setEndNode(true);
+                                break;
+                            case "false":
+                                currentNode.setEndNode(false);
+                                break;
+                            default:
+                                throw new Exception("Value invalide pour 'is_end_of_word' : " + String.valueOf(entry.getValue()));
+                        }
                             break;
+
                         case "children":
                             parseJsonToPatriciaTrieNode(String.valueOf(entry.getValue()), currentNode);
                         break;

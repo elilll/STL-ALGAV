@@ -39,14 +39,14 @@ public class ConvertJson {
             getchildren=true;
             result.append("\n");
             if(i+1 == node.getChildren().size()){
-                result.append(tab + "\t").append("\""+ children.getKey().charAt(0)+"\": {\n");
+                result.append(tab).append("\t").append("\"").append(children.getKey().charAt(0)).append("\": {\n");
                 patriciaTrieString(tab + "\t\t", children.getValue(), result, children.getKey());
 
-                result.append(tab + "\t").append("}\n");
+                result.append(tab).append("\t").append("}\n");
             }else{
-                result.append(tab + "\t").append("\""+ children.getKey().charAt(0)+"\": {\n");
+                result.append(tab).append("\t").append("\"").append(children.getKey().charAt(0)).append("\": {\n");
                 patriciaTrieString(tab + "\t\t", children.getValue(), result, children.getKey());
-                result.append(tab + "\t").append("},");
+                result.append(tab).append("\t").append("},");
             }
             i++;
         }
@@ -56,8 +56,6 @@ public class ConvertJson {
         }
         
         result.append("}\n");
-        
-        return;
     }
 
     private static String formatJsonPatricia(PatriciaTrieNode root) {
@@ -77,8 +75,6 @@ public class ConvertJson {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return;
     }
 
     /**

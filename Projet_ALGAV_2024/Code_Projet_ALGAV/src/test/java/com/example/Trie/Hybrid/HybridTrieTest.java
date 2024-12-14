@@ -68,8 +68,10 @@ public class HybridTrieTest {
 
         //Suppression
         arbre.suppression("cat");
+        System.out.println("Mots restants dans le trie : " + arbre.listeMots());
         assertFalse(arbre.recherche("cat"));
         assertTrue(arbre.recherche("cart"));
+        assertTrue(arbre.recherche("car"));
     }
     
 }

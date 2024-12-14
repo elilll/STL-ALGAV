@@ -357,7 +357,7 @@ public class HybridTrie {
         
         char currentChar = word.charAt(charIndex);
 
-        if (charIndex + 1 == word.length() && node.getVal() != -1) {
+        if (charIndex + 1 == word.length() && node.getVal() != -1 && currentChar == node.getCar()) {
             node.setVal(-1); // On enlève le marquage de fin de mot
         } 
 
@@ -374,7 +374,7 @@ public class HybridTrie {
             && node.getPointeurs()[HybridTrieNode.INF] == null
             && node.getPointeurs()[HybridTrieNode.EQ] == null
             && node.getPointeurs()[HybridTrieNode.SUP] == null) {
-                node = null;
+                return null;
         }
 
         return node;

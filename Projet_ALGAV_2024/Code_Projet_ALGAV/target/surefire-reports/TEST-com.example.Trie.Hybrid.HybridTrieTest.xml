@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Hybrid.HybridTrieTest" time="0.049" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Hybrid.HybridTrieTest" time="0.109" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;"/>
+    <property name="java.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\margo\.m2\repository\org\json\json\20210307\json-20210307.jar;"/>
     <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,10 +15,10 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire16543612911078374471\surefirebooter16333002222696538116.jar C:\Users\margo\AppData\Local\Temp\surefire16543612911078374471 2024-12-14T16-29-15_324-jvmRun1 surefire14647055515138543849tmp surefire_013130321390708808756tmp"/>
+    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508\surefirebooter9043295833652139784.jar C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508 2024-12-14T20-42-19_929-jvmRun1 surefire8533349062987139268tmp surefire_03460177158588229544tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="com.example.Trie.Hybrid.HybridTrieTest"/>
-    <property name="surefire.test.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;"/>
+    <property name="test" value="com.example.Trie.Hybrid.HybridTrieTest#testHybridTrieBuildJson"/>
+    <property name="surefire.test.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\margo\.m2\repository\org\json\json\20210307\json-20210307.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\margo"/>
     <property name="user.language" value="fr"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire16543612911078374471\surefirebooter16333002222696538116.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508\surefirebooter9043295833652139784.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -60,8 +60,81 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testHybridTrieFunctions" classname="com.example.Trie.Hybrid.HybridTrieTest" time="0.028">
-    <system-out><![CDATA[Mots restants dans le trie : [bat, cart, car, dog]
+  <testcase name="testHybridTrieBuildJson" classname="com.example.Trie.Hybrid.HybridTrieTest" time="0.065">
+    <system-out><![CDATA[*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\formatTxt\exempleSimple.txt
+File : 5mots | Hybrid Trie : 5 mots
+Représentation JSON de l'Hybrid Trie :
+{
+	"char": "c",
+	"is_end_of_word": false,
+	"left": {
+		"char": "b",
+		"is_end_of_word": false,
+		"left": null,
+		"middle": {
+			"char": "a",
+			"is_end_of_word": false,
+			"left": null,
+			"middle": {
+				"char": "t",
+				"is_end_of_word": true,
+				"left": null,
+				"middle": null,
+				"right": null
+			},
+			"right": null
+		},
+		"right": null
+	},
+	"middle": {
+		"char": "a",
+		"is_end_of_word": false,
+		"left": null,
+		"middle": {
+			"char": "r",
+			"is_end_of_word": true,
+			"left": null,
+			"middle": {
+				"char": "t",
+				"is_end_of_word": true,
+				"left": null,
+				"middle": null,
+				"right": null
+			},
+			"right": {
+				"char": "t",
+				"is_end_of_word": true,
+				"left": null,
+				"middle": null,
+				"right": null
+			}
+		},
+		"right": null
+	},
+	"right": {
+		"char": "d",
+		"is_end_of_word": false,
+		"left": null,
+		"middle": {
+			"char": "o",
+			"is_end_of_word": false,
+			"left": null,
+			"middle": {
+				"char": "g",
+				"is_end_of_word": true,
+				"left": null,
+				"middle": null,
+				"right": null
+			},
+			"right": null
+		},
+		"right": null
+	}
+}
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier exempleSimple.txt contient bien tous les mots de ce fichier
+
 ]]></system-out>
   </testcase>
 </testsuite>

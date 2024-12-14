@@ -13,6 +13,15 @@ public class HybridTrie {
         this.root = null; // Initialisation du trie vide
     }
 
+    //Getteur et Setteur
+    public HybridTrieNode getRoot(){
+        return this.root;
+    }
+
+    public void setRoot(HybridTrieNode root) {
+        this.root = root;
+    }
+
     //Méthodes
 
     /** 
@@ -29,13 +38,8 @@ public class HybridTrie {
                 throw new IllegalArgumentException("Caractère non supporté : " + Byte.toString(b) + " (code ascii : " + b +")");
             }
         }
-
-        if(recherche(word) == true){
-            System.out.println("Le mot que vous voulez insérer est déjà présent dans le trie hybride");
-        }
-        else{
-            root = insertRec(root, word, 0, index);
-        }
+        
+        root = insertRec(root, word, 0, index);
     }
 
     /**
@@ -97,7 +101,7 @@ public class HybridTrie {
             return rechercheRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
         } else { // currentChar == node.getCar()
             if (charIndex + 1 == word.length()) {
-                return node.getVal() != -1; // On vérifie que le noeud marque bien la fin valide d'un mot dans le trie
+                return node.getVal() != HybridTrieNode.NOTENDWORD; // On vérifie que le noeud marque bien la fin valide d'un mot dans le trie
             } else {
                 return rechercheRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
             }
@@ -114,7 +118,7 @@ public class HybridTrie {
 
     /**
      * Fonction de comptage récursive ( utilisée dans comptageMots() )
-     * Rappel : si un noeud a pour valeur -1, c'est que ce n'est pas la terminaison d'un mot du trie
+     * Rappel : si un noeud a pour valeur -1 (HybridTrieNode.NOTENDWORD), c'est que ce n'est pas la terminaison d'un mot du trie
      * @param node : le noeud courant sur lequel on travaille
      * @return : le nombre de mots détectés
      */
@@ -124,8 +128,8 @@ public class HybridTrie {
         }
 
         int count = 0;
-        if (node.getVal() != -1) {
-            count++; // Si val est différent de -1, c'est qu'un mot a été ajouté dans le trie
+        if (node.getVal() != HybridTrieNode.NOTENDWORD) {
+            count++; // Si val est différent de -1 (HybridTrieNode.NOTENDWORD), c'est qu'un mot a été ajouté dans le trie
         }
 
         // On parcourt récursivement les trois sous-arbres du noeud courant
@@ -149,7 +153,7 @@ public class HybridTrie {
     /**
      * Fonction récursive pour créer la liste des mots du trie ( utilisée dans listeMots() )
      * Principe : on a un préfixe qui permet de garder en mémoire à chaque appel récursif les lettres parcourues (et ainsi construire le mot petit à petit).
-     * Quand on arrive sur la fin d'un mot (val != -1), le préfixe contient le mot dans son entierté, il suffit alors de l'ajouter dans notre liste.
+     * Quand on arrive sur la fin d'un mot (val != -1 || HybridTrieNode.NOTENDWORD), le préfixe contient le mot dans son entierté, il suffit alors de l'ajouter dans notre liste.
      * @return : la liste contenant les mots qu'on a trouvé jusqu'ici
      */
     private List<String> listeMotsRec(HybridTrieNode node, StringBuilder prefixe){
@@ -169,7 +173,7 @@ public class HybridTrie {
         liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.SUP], new StringBuilder(prefixe))); // Sup
 
          // Si le noeud marque la fin d'un mot, ajouter le mot complet à la liste
-        if (node.getVal() != -1) {
+        if (node.getVal() != HybridTrieNode.NOTENDWORD) {
             liste.add(prefixe.toString() + node.getCar());
         }
 
@@ -357,8 +361,8 @@ public class HybridTrie {
         
         char currentChar = word.charAt(charIndex);
 
-        if (charIndex + 1 == word.length() && node.getVal() != -1 && currentChar == node.getCar()) {
-            node.setVal(-1); // On enlève le marquage de fin de mot
+        if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOTENDWORD && currentChar == node.getCar()) {
+            node.setVal(HybridTrieNode.NOTENDWORD); // On enlève le marquage de fin de mot
         } 
 
         if (currentChar < node.getCar()) {
@@ -370,7 +374,7 @@ public class HybridTrie {
         }
 
         // Après avoir traité le mot, vérifier si ce noeud peut être supprimé == il ne contient aucun enfant
-        if (node.getVal() == -1 
+        if (node.getVal() == HybridTrieNode.NOTENDWORD 
             && node.getPointeurs()[HybridTrieNode.INF] == null
             && node.getPointeurs()[HybridTrieNode.EQ] == null
             && node.getPointeurs()[HybridTrieNode.SUP] == null) {

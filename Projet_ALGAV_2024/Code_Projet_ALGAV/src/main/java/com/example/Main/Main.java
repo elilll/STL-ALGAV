@@ -66,8 +66,18 @@ public class Main {
                 }
                 break;
             case "1" :
-                //TODO
-                //Oriane
+                // Hybrid Trie
+                try (Scanner scan = new Scanner(words)) {
+                    HybridTrie trie = ConvertJson.convertJsonToHybridTrie(new File(Constant.HYBRIDJSONFILE));
+        
+                    while(scan.hasNext()){
+                        trie.suppression(scan.nextLine());
+                    }
+        
+                    ConvertJson.convertHybridToJson(trie);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 break;
             
             default : throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) ");     
@@ -89,8 +99,15 @@ public class Main {
                 }
                 break;
             case "1":
-                //TODO
-                //Oriane
+            // Hybrid Trie
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+                    
+                try (FileWriter writer = new FileWriter(Constant.NBMOTPRESENTTRIE)) {
+                    writer.write("Le nombre de mots dans l'arbre : " + trie.getName() + " est " + hyb.comptageMots());
+                    System.out.println("Nombre de mots dans l'arbre : "+ trie.getName() +" ajouté dans " + Constant.NBMOTPRESENTTRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie)");
         }
@@ -109,10 +126,16 @@ public class Main {
                     e.printStackTrace();
                 }
                 break;
-        
             case "1":
-                //TODO
-                //Oriane
+                // Patricia tries
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+        
+                try (FileWriter writer = new FileWriter(Constant.NILSTRIE)) {
+                    writer.write("Le nombre de Nils de l'arbre : " + trie.getName() + " est " + hyb.comptageNil());
+                    System.out.println("Nombre de Nils dans l'arbre : "+ trie.getName() +" ajouté dans " + Constant.NILSTRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction " + modeTrie + "(0-PatriciaTrie; 1-HybridTrie)");
         }
@@ -132,8 +155,15 @@ public class Main {
                 }
                 break;
             case "1":
-                //TODO
-                //Oriane
+                // Hybrid Trie
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+        
+                try (FileWriter writer = new FileWriter(Constant.HAUTEURTRIE)) {
+                    writer.write("La hauteur de l'arbre : "+ trie.getName() + " est " + hyb.hauteur());
+                    System.out.println("Hauteur de l'arbre : "+ trie.getName() +" ajoutée dans " + Constant.HAUTEURTRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction " + modeTrie + "(0-PatriciaTrie; 1-HybridTrie)");
         }
@@ -153,8 +183,15 @@ public class Main {
                 }
                 break;
             case "1":
-                //TODO
-                //Oriane
+                // Hybrid Trie
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+        
+                try (FileWriter writer = new FileWriter(Constant.PROFONDEURTRIE)) {
+                    writer.write("La profondeur moyenne de l'arbre : "+ trie.getName() + " est " + hyb.profondeurMoyenne());
+                    System.out.println("Profondeur moyenne de l'arbre : "+ trie.getName() +" ajoutée dans " + Constant.PROFONDEURTRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction " + modeTrie + "(0-PatriciaTrie; 1-HybridTrie)");
         }
@@ -177,8 +214,17 @@ public class Main {
                 }
                 break;
             case "1":
-                //TODO
-                //Oriane
+                // Hybrid Trie
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+        
+                try (FileWriter writer = new FileWriter(Constant.LISTEMOTTRIE)) {
+                    for(String word : hyb.listeMots()){
+                        writer.write(word + "\n");
+                    }
+                    System.out.println("Mots présent dans l'arbre : "+ trie.getName() +" ajoutés dans " + Constant.LISTEMOTTRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction " + modeTrie + "(0-PatriciaTrie; 1-HybridTrie)");
         }
@@ -200,8 +246,17 @@ public class Main {
                 }
                 break;
             case "1":
-                //TODO
-                //Oriane
+                // Hybrid Trie
+                HybridTrie hyb = ConvertJson.convertJsonToHybridTrie(trie);
+        
+                try (FileWriter writer = new FileWriter(Constant.PREFIXETRIE)) {
+                    writer.write("Dans l'arbre " + trie.getName() + ", il y a "+ hyb.prefixe(prefix) +" de mots ayant pour préfixe : " + prefix);
+                    System.out.println("Mots présent dans l'arbre : "+ trie.getName() +" ajoutés dans " + Constant.PREFIXETRIE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {      
+                    e.printStackTrace();
+                }
                 break;
             default: throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) ");
         }
@@ -315,5 +370,6 @@ public class Main {
             }
         }
     }
+
     
 }

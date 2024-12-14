@@ -1,15 +1,16 @@
 package com.example.Main;
 
-import com.example.Trie.Hybrid.HybridTrie;
-import com.example.Trie.Patricia.PatriciaTrie;
-import com.example.Util.Constant;
-import com.example.Util.ConvertJson;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.example.Trie.Hybrid.HybridTrie;
+import com.example.Trie.Patricia.PatriciaTrie;
+import com.example.Util.Constant;
+import com.example.Util.ConvertJson;
+
+@SuppressWarnings("CallToPrintStackTrace")
 public class Main {
 
     private static void insert(File words, String modeTrie){

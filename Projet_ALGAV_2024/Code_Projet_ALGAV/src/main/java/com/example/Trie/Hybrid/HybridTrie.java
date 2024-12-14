@@ -30,7 +30,12 @@ public class HybridTrie {
             }
         }
 
-        root = insertRec(root, word, 0, index);
+        if(recherche(word) == true){
+            System.out.println("Le mot que vous voulez insérer est déjà présent dans le trie hybride");
+        }
+        else{
+            root = insertRec(root, word, 0, index);
+        }
     }
 
     /**
@@ -77,7 +82,7 @@ public class HybridTrie {
      * @param node : le noeud courant sur lequel on travaille
      * @param word : le mot à rechercher
      * @param charIndex : le numéro du caractère de word sur lequel on travaille (lettre par lettre)
-     * @return
+     * @return : true si le mot existe, false sinon
      */
     private boolean rechercheRec(HybridTrieNode node, String word, int charIndex){
         char currentChar = word.charAt(charIndex);
@@ -154,31 +159,35 @@ public class HybridTrie {
             return liste; // Si le noeud est vide, on renvoie la liste vide
         }
 
-        // Si le noeud marque la fin d'un mot dans le trie, on l'ajoute dans la liste
-        if (node.getVal() != -1){
-            liste.add(prefixe.append(node.getCar()).toString());
-        }
-
         // On parcourt récursivement les trois sous-arbres du noeud courant
-        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.INF], prefixe));
-        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.EQ], prefixe));
-        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.SUP], prefixe));
+        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.INF], new StringBuilder(prefixe))); // Inf
 
-        // On retire le dernier caractère ajouté pour revenir à l'état précédent 
-        // (Exemple : une fois qu'on a terminé d'explorer "cat" dans l'arbre, on doit restaurer le prefixe pour pouvoir explorer "bat")
-        prefixe.deleteCharAt(prefixe.length() - 1);
+        prefixe.append(node.getCar()); // On ajoute le caractère pour explorer le sous-arbre Eq
+        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.EQ], prefixe)); // Eq
+        prefixe.deleteCharAt(prefixe.length() - 1); // On retire le caractère après avoir exploré Eq
+
+        liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.SUP], new StringBuilder(prefixe))); // Sup
+
+         // Si le noeud marque la fin d'un mot, ajouter le mot complet à la liste
+        if (node.getVal() != -1) {
+            liste.add(prefixe.toString() + node.getCar());
+        }
 
         return liste;
     }
 
     /**
      * Fonction qui compte les pointeurs vers Nil 
-     * NB : pour éviter de prendre trop de places en mémoire, on ne crée des noeuds qu'en cas de besoin. 
+     * NB : pour éviter de prendre trop de place en mémoire, on ne crée des noeuds qu'en cas de besoin. 
      * Ainsi, nous n'avons pas concrètement de pointeurs Nil dans notre trie. 
      * Il suffit donc de compter le nombre de cases vides dans le tableau "pointeurs" de chaque noeud du trie.
      * @return : nombre de pointeurs vides
      */
     public int comptageNil(){
+        if (root == null) {
+            System.out.println("null");
+            return 0; // Si la racine est null, aucun pointeur à compter
+        }
         return comptageNilRec(root);
     }
 
@@ -189,7 +198,7 @@ public class HybridTrie {
      */
     private int comptageNilRec(HybridTrieNode node){
         if (node == null){
-            return 0;
+            return 1;
         }
 
         int count = 0;
@@ -240,7 +249,7 @@ public class HybridTrie {
      * Calcul : profondeur moyenne = somme des profondeurs des feuilles / nombre de feuilles
      * Principe : on a un tableau result pour stocker la somme des profondeurs des feuilles (dans result[0])
      * et pour stocker le nombre de feuilles rencontrées (dans rersult[1]).
-     * @return
+     * @return : la profondeur moyenne des feuilles de l'arbre
      */
     public int profondeurMoyenne() {
         int[] result = new int[2];
@@ -294,7 +303,7 @@ public class HybridTrie {
             return 0;
         }
         
-        return comptageMotsRec(node.getPointeurs()[HybridTrieNode.EQ]);
+        return comptageMotsRec(node);
     }
 
     /**
@@ -302,30 +311,74 @@ public class HybridTrie {
      * @param node : le noeud courant sur lequel on travaille
      * @param word : le mot à rechercher
      * @param charIndex : le numéro du caractère de word sur lequel on travaille (lettre par lettre)
-     * @return
+     * @return : le noeud actuel modifié
      */
-    private HybridTrieNode goToNodeFromWord(HybridTrieNode node, String word, int charIndex){
-        char currentChar = word.charAt(charIndex);
-
-        if (node == null | charIndex == word.length()) { // Si on a parcouru tout le préfixe, on s'arrête
+    private HybridTrieNode goToNodeFromWord(HybridTrieNode node, String word, int charIndex) {
+        if (node == null || charIndex >= word.length()) {
             return node;
         }
 
+        char currentChar = word.charAt(charIndex);
+
         if (currentChar < node.getCar()) {
-            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);  // Inf
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);
         } else if (currentChar > node.getCar()) {
-            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
-        } else { // currentChar == node.getCar()
-            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex);
+        } else {
+            return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1);
         }
     }
+
 
     /**
      * Fonction qui prend un mot en argument et qui le supprime de l’arbre s’il y figure
      * @param word : le mot à supprimer
      */
     public void suppression(String word){
-        //TODO
+        if(recherche(word) == true){
+            root = suppressionRec(root, word, 0);
+        }else{
+            System.out.println("Le mot que vous cherchez à supprimer n'existe pas dans le trie hybride");
+        }
     }
+
+    /**
+     * Fonction récursive pour supprimer un mot de l'arbre
+     * NB : pour pouvoir respecter la structure de l'arbre, la suppression doit prendre en compte 
+     * @param node : le noeud courant sur lequel on travaille
+     * @param word : le mot à supprimer
+     * @param charIndex : le numéro du caractère de word sur lequel on travaille (lettre par lettre) 
+     * @return : le noeud actuel modifié
+     */
+    private HybridTrieNode suppressionRec(HybridTrieNode node, String word, int charIndex) {
+        if (node == null) {
+            return null; 
+        }
+        
+        char currentChar = word.charAt(charIndex);
+
+        if (charIndex + 1 == word.length() && node.getVal() != -1) {
+            node.setVal(-1); // On enlève le marquage de fin de mot
+        } 
+
+        if (currentChar < node.getCar()) {
+            node.getPointeurs()[HybridTrieNode.INF] = suppressionRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);
+        } else if (currentChar > node.getCar()) {
+            node.getPointeurs()[HybridTrieNode.SUP] = suppressionRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex);
+        } else { // currentChar == node.getCar()
+            node.getPointeurs()[HybridTrieNode.EQ] = suppressionRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1);
+        }
+
+        // Après avoir traité le mot, vérifier si ce noeud peut être supprimé == il ne contient aucun enfant
+        if (node.getVal() == -1 
+            && node.getPointeurs()[HybridTrieNode.INF] == null
+            && node.getPointeurs()[HybridTrieNode.EQ] == null
+            && node.getPointeurs()[HybridTrieNode.SUP] == null) {
+                node = null;
+        }
+
+        return node;
+    }
+
 }
 

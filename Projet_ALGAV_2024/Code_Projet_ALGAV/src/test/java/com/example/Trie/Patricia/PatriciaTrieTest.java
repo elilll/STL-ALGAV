@@ -1,6 +1,5 @@
 package com.example.Trie.Patricia;
 
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +15,12 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+@SuppressWarnings("CallToPrintStackTrace")
 
 public class PatriciaTrieTest {
     private static final File folder = new File("src/test/java/com/example/Samples/Shakespeare/");

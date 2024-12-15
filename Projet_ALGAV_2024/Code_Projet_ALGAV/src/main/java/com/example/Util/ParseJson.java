@@ -4,11 +4,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.example.Trie.Hybrid.HybridTrieNode;
 import com.example.Trie.Patricia.PatriciaTrieNode;
 
-
+@SuppressWarnings("CallToPrintStackTrace")
 
 public class ParseJson {
+ 
     public static void parseJsonToPatriciaTrieNode(String json, PatriciaTrieNode currentNode) throws Exception {
         Map<String, Object> map;
         json = json.trim();
@@ -33,14 +35,20 @@ public class ParseJson {
                             }
                             break;
                         case "is_end_of_word" : 
-                            if(String.valueOf(entry.getValue()) == "true"){
-                                currentNode.setEndNode(true);
-                            }else if(String.valueOf(entry.getValue()) == "false"){
-                                currentNode.setEndNode(false);
-                            }else{
+                            if(null == String.valueOf(entry.getValue())){
                                 throw new Exception("Value invalide pour 'is_end_of_word' : " + String.valueOf(entry.getValue()));
-                            }
+                            }else switch (String.valueOf(entry.getValue())) {
+                            case "true":
+                                currentNode.setEndNode(true);
+                                break;
+                            case "false":
+                                currentNode.setEndNode(false);
+                                break;
+                            default:
+                                throw new Exception("Value invalide pour 'is_end_of_word' : " + String.valueOf(entry.getValue()));
+                        }
                             break;
+
                         case "children":
                             parseJsonToPatriciaTrieNode(String.valueOf(entry.getValue()), currentNode);
                         break;
@@ -62,7 +70,7 @@ public class ParseJson {
 
     /* Méthode qui permet de parser les noeuds des Tries au format json (key : value). Retourne une table de hachage (<key,value>) ordonné par ordre d'insertion. */
     private static Map<String, Object> parseNode(String jsonString) throws Exception {
-        String newJsonString = jsonString.replaceAll("\\s+", "");
+        String newJsonString = jsonString.replaceAll("\s+", "");
         Map<String, Object> map = new LinkedHashMap<>();
         int i = 0;
 
@@ -139,5 +147,100 @@ public class ParseJson {
         while (i < json.length() && (json.charAt(i) == ' ' || json.charAt(i) == ',')) i++;
         return i;
     }
+
+    public static void parseJsonToHybridTrieNode(String json, HybridTrieNode currentNode) throws Exception {
+        Map<String, Object> map;
+        json = json.trim();
+        
+        if (json.startsWith("{") && json.endsWith("}")) {
+            try {
+                map = parseNode(json.substring(1, json.length() - 1));
+    
+                for (Map.Entry<String, Object> entry : map.entrySet()) {
+                    switch (entry.getKey()) {
+                        case "char":
+                            // Vérification et affectation du caractère
+                            if (String.valueOf(entry.getValue()).length() == 1) {
+                                char c = String.valueOf(entry.getValue()).charAt(0);
+                                currentNode.setCar(c);
+                            } else {
+                                throw new Exception("Valeur invalide pour 'char' : " + entry.getValue());
+                            }
+                            break;
+    
+                        case "is_end_of_word":
+                            if (null == String.valueOf(entry.getValue())) {
+                                throw new Exception("Valeur invalide pour 'is_end_of_word' : " + entry.getValue());
+                            } else // Définir si le nœud est une fin de mot
+                        switch (String.valueOf(entry.getValue())) {
+                            case "true":
+                                currentNode.setVal(HybridTrieNode.ENDWORD); // Marque la fin d'un mot
+                                break;
+                            case "false":
+                                currentNode.setVal(HybridTrieNode.NOTENDWORD); // Pas une fin de mot
+                                break;
+                            default:
+                                throw new Exception("Valeur invalide pour 'is_end_of_word' : " + entry.getValue());
+                        }
+                            break;
+
+    
+                        case "left":
+                            // Traiter le sous-arbre gauche
+                            if (!"null".equals(String.valueOf(entry.getValue()))) {
+                                String value = String.valueOf(entry.getValue());
+                                if (value.length() == 1) {
+                                    char c = value.charAt(0); // Convertir en char
+                                    HybridTrieNode leftNode = new HybridTrieNode(c); // Création avec char
+                                    currentNode.getPointeurs()[HybridTrieNode.INF] = leftNode;
+                                    parseJsonToHybridTrieNode(String.valueOf(entry.getValue()), leftNode);
+                                } else {
+                                    throw new Exception("Valeur invalide pour 'left' : " + value + ". Un seul caractère attendu.");
+                                }
+                            }
+                            break;
+    
+                        case "middle":
+                            // Traiter le sous-arbre du milieu
+                            if (!"null".equals(String.valueOf(entry.getValue()))) {
+                                String value = String.valueOf(entry.getValue());
+                                if (value.length() == 1) {
+                                    char c = value.charAt(0); 
+                                    HybridTrieNode middleNode = new HybridTrieNode(c); 
+                                    currentNode.getPointeurs()[HybridTrieNode.INF] = middleNode;
+                                    parseJsonToHybridTrieNode(String.valueOf(entry.getValue()), middleNode);
+                                } else {
+                                    throw new Exception("Valeur invalide pour 'middle' : " + value + ". Un seul caractère attendu.");
+                                }
+                            }
+                            break;
+    
+                        case "right":
+                            // Traiter le sous-arbre droit
+                            if (!"null".equals(String.valueOf(entry.getValue()))) {
+                                String value = String.valueOf(entry.getValue());
+                                if (value.length() == 1) {
+                                    char c = value.charAt(0); 
+                                    HybridTrieNode rightNode = new HybridTrieNode(c); 
+                                    currentNode.getPointeurs()[HybridTrieNode.INF] = rightNode;
+                                    parseJsonToHybridTrieNode(String.valueOf(entry.getValue()), rightNode);
+                                } else {
+                                    throw new Exception("Valeur invalide pour 'right' : " + value + ". Un seul caractère attendu.");
+                                }
+                            }
+                            break;
+    
+                        default:
+                            throw new Exception("Clé inconnue dans le JSON : " + entry.getKey());
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new Exception("Format JSON invalide : " + json);
+        }
+    }
+    
 
 }

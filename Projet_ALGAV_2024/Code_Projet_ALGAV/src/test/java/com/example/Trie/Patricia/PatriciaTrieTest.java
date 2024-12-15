@@ -1,18 +1,19 @@
 package com.example.Trie.Patricia;
 
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.io.File;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+@SuppressWarnings("CallToPrintStackTrace")
 
 public class PatriciaTrieTest {
     @Test

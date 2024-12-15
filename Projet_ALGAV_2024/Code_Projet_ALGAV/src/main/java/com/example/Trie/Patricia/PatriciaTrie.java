@@ -11,10 +11,12 @@ import java.util.Map;
 public class PatriciaTrie {
     /************************************************* Attributs *************************************************/
     private PatriciaTrieNode root;
+    public int nbnode;
 
     /************************************************* Constructeur *************************************************/
     public PatriciaTrie() {
-        root = new PatriciaTrieNode();
+        this.root = new PatriciaTrieNode();
+        this.nbnode = 1;
     }
 
     /************************************************* Getteur *************************************************/
@@ -69,6 +71,7 @@ public class PatriciaTrie {
      * Quand le mot est entièrement insérer, le noeud est terminal du mot est marqué (fin de mot).
      */
     private void insertRec(String word, PatriciaTrieNode current){
+        //nbnode++;
         if(word.length() == 0){
             current.setEndNode(true);
             return;
@@ -92,10 +95,12 @@ public class PatriciaTrie {
                     current.getChildren().remove(edge);
                     current.addChild(word.substring(0,commonPrefixLength), newNode);
                 
+                    nbnode++;
                     if(commonPrefixLength < word.length()){
                         PatriciaTrieNode newNodeWord = new PatriciaTrieNode();
                         newNodeWord.setEndNode(true);
                         newNode.addChild(word.substring(commonPrefixLength), newNodeWord);
+                        nbnode++;
                     }else{
                         newNode.setEndNode(true);
                     }
@@ -107,6 +112,7 @@ public class PatriciaTrie {
         PatriciaTrieNode newNode = new PatriciaTrieNode();
         newNode.setEndNode(true);
         current.addChild(word, newNode);
+        nbnode++;
         return;
     }
 
@@ -158,7 +164,7 @@ public class PatriciaTrie {
             }
         }
 
-        int k = 0;
+
         for(String edge : current.getChildren().keySet()){
             int commonPrefixLength = commonPrefixLength(word, edge);
 
@@ -172,10 +178,7 @@ public class PatriciaTrie {
                 }
                 
                 return false;
-            }else if(k >= current.getChildren().size() + 1){
-                throw new Exception("Le mot n'est pas présent dans l'arbre");
             }
-            
         }
         
         throw new Exception("Le mot n'est pas présent dans l'arbre");
@@ -282,6 +285,66 @@ public class PatriciaTrie {
         }
     }
 
+    private void fusionRec(PatriciaTrieNode current1, String prefix, PatriciaTrieNode current2) {
+        if (prefix.length() == 0) {
+            // Si le préfixe est vide, on fusionne tous les enfants de current2 dans current1
+            for (String edge : current2.getChildren().keySet()) {
+                PatriciaTrieNode child2 = current2.getChildren().get(edge);
+                fusionRec(current1, edge, child2);
+            }
+            // Copier également l'état de fin de mot si applicable
+            if (current2.isEndNode()) {
+                current1.setEndNode(true);
+            }
+            return;
+        }
+    
+        for (String edge : current1.getChildren().keySet()) {
+            int commonPrefixLength = commonPrefixLength(prefix, edge);
+    
+            if (commonPrefixLength > 0) {
+                if (commonPrefixLength == edge.length()) {
+                    // L'edge actuelle est entièrement couverte par le préfixe
+                    fusionRec(current1.getChildren().get(edge), prefix.substring(commonPrefixLength), current2);
+                    return;
+                } else {
+                    // Cas où le préfixe partage une partie avec l'edge actuelle
+                    PatriciaTrieNode tmpNode = current1.getChildren().get(edge);
+                    String remainingEdge = edge.substring(commonPrefixLength);
+    
+                    // Créer un nouveau nœud intermédiaire
+                    PatriciaTrieNode newNode = new PatriciaTrieNode();
+                    newNode.addChild(remainingEdge, tmpNode);
+    
+                    // Mettre à jour current1
+                    current1.getChildren().remove(edge);
+                    current1.addChild(edge.substring(0, commonPrefixLength), newNode);
+    
+                    if (commonPrefixLength < prefix.length()) {
+                        // Ajouter la partie restante du préfixe
+                        newNode.addChild(prefix.substring(commonPrefixLength), current2);
+                    } else {
+                        // Si le préfixe est entièrement couvert, marquer le nœud
+                        newNode.setEndNode(true);
+                        // Fusionner les enfants de current2 dans newNode
+                        for (String edge2 : current2.getChildren().keySet()) {
+                            newNode.addChild(edge2, current2.getChildren().get(edge2));
+                        }
+                        if (current2.isEndNode()) {
+                            newNode.setEndNode(true);
+                        }
+                    }
+                    return;
+                }
+            }
+        }
+    
+        // Si aucun préfixe commun n'est trouvé, ajouter current2 comme un nouvel enfant
+        current1.addChild(prefix, current2);
+    }
+
+    
+
     /******************************************************* Primitives(insert,search,delete) *******************************************************/
     
     /** Méthode qui permet d'insérer un mot dans un arbre Patricia (Patricia Trie).
@@ -294,7 +357,7 @@ public class PatriciaTrie {
     
      * L'insertion est effectuée de manière récursive à l'aide de la méthode interne 'insertRec'.
      */
-    public void insertWord(String word) {
+    public double insertWord(String word) {
         /* Vérifie si le mot entré ne comporte que des caratères du code ASCII < 128 charatères */
         byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
@@ -303,7 +366,10 @@ public class PatriciaTrie {
             }
         }
 
+        double startTime = System.nanoTime();
         insertRec(word, this.root);
+        double endTime = System.nanoTime();
+        return (endTime - startTime)/1000.0;
     }
 
     /**
@@ -407,5 +473,9 @@ public class PatriciaTrie {
 
     public int countWordsPrefix(String prefix) throws Exception {
         return prefixRec(this.root, prefix);
+    }
+
+    public void fusion(PatriciaTrie pat){
+        fusionRec(this.root,"",pat.getRoot());
     }
 }

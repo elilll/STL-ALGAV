@@ -11,10 +11,12 @@ import java.util.Map;
 public class PatriciaTrie {
     /************************************************* Attributs *************************************************/
     private PatriciaTrieNode root;
+    public int nbnodes;
 
     /************************************************* Constructeur *************************************************/
     public PatriciaTrie() {
-        root = new PatriciaTrieNode();
+        this.root = new PatriciaTrieNode();
+        this.nbnodes = 1;
     }
 
     /************************************************* Getteur *************************************************/
@@ -68,45 +70,50 @@ public class PatriciaTrie {
      * 
      * Quand le mot est entièrement insérer, le noeud est terminal du mot est marqué (fin de mot).
      */
-    private void insertRec(String word, PatriciaTrieNode current){
-        if(word.length() == 0){
+    private void insertRec(String word, PatriciaTrieNode current) {
+        if (word.isEmpty()) {
             current.setEndNode(true);
             return;
         }
-
-        for (String edge : current.getChildren().keySet()){
+    
+        if(!current.getChildren().isEmpty()){
+        for (Map.Entry<String, PatriciaTrieNode> entry : current.getChildren().entrySet()) {
+            String edge = entry.getKey();
+            PatriciaTrieNode child = entry.getValue();
+    
             int commonPrefixLength = commonPrefixLength(word, edge);
-
-            if(commonPrefixLength > 0){
-                if(commonPrefixLength == edge.length()){
-                    insertRec(word.substring(commonPrefixLength), current.getChildren().get(edge));
+    
+            if (commonPrefixLength > 0) {
+                if (commonPrefixLength == edge.length()) {
+                    insertRec(word.substring(commonPrefixLength), child);
                     return;
-                }else{
-                    PatriciaTrieNode tmpNode = current.getChildren().get(edge);
-                    String remmainingEdge =edge.substring(commonPrefixLength);
-
+                } else {
+                    String remainingEdge = edge.substring(commonPrefixLength);
                     PatriciaTrieNode newNode = new PatriciaTrieNode();
-                    newNode.addChild(remmainingEdge, tmpNode);
-
-
+    
+                    newNode.addChild(remainingEdge, child);
+    
                     current.getChildren().remove(edge);
-                    current.addChild(word.substring(0,commonPrefixLength), newNode);
-                
-                    if(commonPrefixLength < word.length()){
-                        PatriciaTrieNode newNodeWord = new PatriciaTrieNode();
-                        newNodeWord.setEndNode(true);
-                        newNode.addChild(word.substring(commonPrefixLength), newNodeWord);
-                    }else{
+                    current.addChild(edge.substring(0, commonPrefixLength), newNode);
+    
+                    if (commonPrefixLength < word.length()) {
+                        PatriciaTrieNode newWordNode = new PatriciaTrieNode();
+                        newWordNode.setEndNode(true);
+                        newNode.addChild(word.substring(commonPrefixLength), newWordNode);
+                        nbnodes++;
+                    } else {
                         newNode.setEndNode(true);
                     }
                     return;
                 }
             }
         }
-
+    
+        }
         PatriciaTrieNode newNode = new PatriciaTrieNode();
         newNode.setEndNode(true);
         current.addChild(word, newNode);
+        nbnodes++;
         return;
     }
 
@@ -127,11 +134,12 @@ public class PatriciaTrie {
             }
         }
 
-        for(String edge : current.getChildren().keySet()){
-            int commonPrefixLength = commonPrefixLength(word, edge);
+        for(Map.Entry<String, PatriciaTrieNode> entry : current.getChildren().entrySet()){
+            String edge = entry.getKey();
+            PatriciaTrieNode child = entry.getValue();
 
-            if (commonPrefixLength > 0 && commonPrefixLength == edge.length() ) {
-                return searchRec(word.substring(commonPrefixLength), current.getChildren().get(edge));
+            if (word.startsWith(edge)) {
+                return searchRec(word.substring(edge.length()),child);
             }
             
         }
@@ -158,12 +166,10 @@ public class PatriciaTrie {
             }
         }
 
-        int k = 0;
-        for(String edge : current.getChildren().keySet()){
-            int commonPrefixLength = commonPrefixLength(word, edge);
 
-            if (commonPrefixLength > 0 && commonPrefixLength == edge.length() ) {
-                boolean needDeleteChild = deleteRec(word.substring(commonPrefixLength), current.getChildren().get(edge));
+        for(String edge : current.getChildren().keySet()){
+            if (word.startsWith(edge)) {
+                boolean needDeleteChild = deleteRec(word.substring(edge.length()), current.getChildren().get(edge));
 
                 if(needDeleteChild){
                     current.getChildren().remove(edge);
@@ -172,10 +178,7 @@ public class PatriciaTrie {
                 }
                 
                 return false;
-            }else if(k >= current.getChildren().size() + 1){
-                throw new Exception("Le mot n'est pas présent dans l'arbre");
             }
-            
         }
         
         throw new Exception("Le mot n'est pas présent dans l'arbre");
@@ -282,6 +285,66 @@ public class PatriciaTrie {
         }
     }
 
+    private void fusionRec(PatriciaTrieNode current1, String prefix, PatriciaTrieNode current2) {
+        if (prefix.length() == 0) {
+            // Si le préfixe est vide, on fusionne tous les enfants de current2 dans current1
+            for (String edge : current2.getChildren().keySet()) {
+                PatriciaTrieNode child2 = current2.getChildren().get(edge);
+                fusionRec(current1, edge, child2);
+            }
+            // Copier également l'état de fin de mot si applicable
+            if (current2.isEndNode()) {
+                current1.setEndNode(true);
+            }
+            return;
+        }
+    
+        for (String edge : current1.getChildren().keySet()) {
+            int commonPrefixLength = commonPrefixLength(prefix, edge);
+    
+            if (commonPrefixLength > 0) {
+                if (commonPrefixLength == edge.length()) {
+                    // L'edge actuelle est entièrement couverte par le préfixe
+                    fusionRec(current1.getChildren().get(edge), prefix.substring(commonPrefixLength), current2);
+                    return;
+                } else {
+                    // Cas où le préfixe partage une partie avec l'edge actuelle
+                    PatriciaTrieNode tmpNode = current1.getChildren().get(edge);
+                    String remainingEdge = edge.substring(commonPrefixLength);
+    
+                    // Créer un nouveau nœud intermédiaire
+                    PatriciaTrieNode newNode = new PatriciaTrieNode();
+                    newNode.addChild(remainingEdge, tmpNode);
+    
+                    // Mettre à jour current1
+                    current1.getChildren().remove(edge);
+                    current1.addChild(edge.substring(0, commonPrefixLength), newNode);
+    
+                    if (commonPrefixLength < prefix.length()) {
+                        // Ajouter la partie restante du préfixe
+                        newNode.addChild(prefix.substring(commonPrefixLength), current2);
+                    } else {
+                        // Si le préfixe est entièrement couvert, marquer le nœud
+                        newNode.setEndNode(true);
+                        // Fusionner les enfants de current2 dans newNode
+                        for (String edge2 : current2.getChildren().keySet()) {
+                            newNode.addChild(edge2, current2.getChildren().get(edge2));
+                        }
+                        if (current2.isEndNode()) {
+                            newNode.setEndNode(true);
+                        }
+                    }
+                    return;
+                }
+            }
+        }
+    
+        // Si aucun préfixe commun n'est trouvé, ajouter current2 comme un nouvel enfant
+        current1.addChild(prefix, current2);
+    }
+
+    
+
     /******************************************************* Primitives(insert,search,delete) *******************************************************/
     
     /** Méthode qui permet d'insérer un mot dans un arbre Patricia (Patricia Trie).
@@ -304,6 +367,7 @@ public class PatriciaTrie {
         }
 
         insertRec(word, this.root);
+        return;
     }
 
     /**
@@ -320,12 +384,12 @@ public class PatriciaTrie {
      */
     public boolean searchWord(String word) {
         /* Vérifie si le mot à rechercher ne comporte que des caratères du code ASCII < 128 charatères */
-        byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
+        /*byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
             if(b < 0 || b > 127){
                 throw new IllegalArgumentException("Caractère non supporté : " + Byte.toString(b) + " (code ascii : " + b +")");
             }
-        }
+        }*/
 
         return searchRec(word,this.root);
     }
@@ -345,12 +409,12 @@ public class PatriciaTrie {
      */
     public void deleteWord(String word) throws Exception {
         /*Vérifie si le mot à supprimer ne comporte que des caratères du code ASCII < 128 charatères*/
-        byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
+        /*byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
             if(b < 0 || b > 127){
                 throw new IllegalArgumentException("Caractère non supporté : " + Byte.toString(b) + " (code ascii : " + b +")");
             }
-        }
+        }*/
 
         try{
             deleteRec(word, this.root);
@@ -407,5 +471,9 @@ public class PatriciaTrie {
 
     public int countWordsPrefix(String prefix) throws Exception {
         return prefixRec(this.root, prefix);
+    }
+
+    public void fusion(PatriciaTrie pat){
+        fusionRec(this.root,"",pat.getRoot());
     }
 }

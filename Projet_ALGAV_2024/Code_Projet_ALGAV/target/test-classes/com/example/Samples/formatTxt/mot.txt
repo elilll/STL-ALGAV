@@ -1,9 +1,12 @@
+,
 2d
 2s
 4d
 5s
 6d
 8d
+?
+A
 [reads]
 [rising
 [within]
@@ -140,6 +143,7 @@ apiece
 apparent
 appear
 appears
+appel
 applaud
 apple
 appoint
@@ -531,6 +535,7 @@ cavil
 certain
 certainly
 cess
+chacune
 chair
 challenge
 challenged
@@ -581,6 +586,7 @@ chronicles
 chuffs
 church
 churches
+ci
 circumstance
 cital
 cities
@@ -591,6 +597,7 @@ claim
 clamorous
 clap
 clapped
+clavier
 clay
 cleanly
 clear
@@ -614,6 +621,7 @@ coat
 coats
 cock
 cocksure
+coeur
 coffers
 coin
 coinage
@@ -668,6 +676,7 @@ confusion
 confutes
 conjunction
 conjure
+connait
 conquest
 conscience
 consciences
@@ -775,6 +784,8 @@ cushion
 cut
 cuts
 d
+dactylo
+dactylographie
 daff
 dagger
 daily
@@ -800,6 +811,7 @@ daughter
 daventry
 day
 days
+de
 dead
 deadly
 deal
@@ -839,6 +851,7 @@ deposed
 deprived
 deputation
 deputy
+des
 descend
 deserts
 deserves
@@ -847,6 +860,7 @@ deservings
 desired
 desires
 desperate
+dessous
 destroy
 determination
 detested
@@ -972,6 +986,7 @@ drunk
 drunkard
 drunkest
 dry
+du
 duck
 due
 duke
@@ -1007,6 +1022,7 @@ eating
 ebb
 ebrew
 ecce
+ecrire
 edge
 edicts
 edmund
@@ -1021,6 +1037,7 @@ eleven
 eleventh
 elf
 ell
+elle
 eloquence
 else
 elsewhere
@@ -1127,6 +1144,7 @@ faint
 fair
 fairly
 fairy
+fait
 faith
 fall
 fallen
@@ -1344,6 +1362,8 @@ gaze
 geese
 gelding
 general
+genial
+genre
 gentle
 gentleman
 gentlemen
@@ -1794,6 +1814,7 @@ knowest
 knowing
 known
 knows
+la
 labour
 labouring
 lack
@@ -1961,6 +1982,7 @@ lustier
 lustre
 lute
 lying
+machine
 mackerel
 mad
 madcap
@@ -2090,6 +2112,7 @@ mistress
 mists
 misuse
 misused
+modele
 modestly
 moe
 moiety
@@ -2218,6 +2241,7 @@ not
 noted
 nothing
 nourish
+nous
 now
 number
 o
@@ -2307,6 +2331,7 @@ palpable
 pannier
 pant
 papers
+par
 parapets
 paraquito
 parcel
@@ -2376,6 +2401,7 @@ petre
 pewter
 pharaoh
 phoebus
+phrase
 physicians
 pick
 picked
@@ -2503,6 +2529,7 @@ prodigals
 prodigy
 profaned
 profess
+professeur
 profession
 proffer
 proficient
@@ -2532,6 +2559,7 @@ pry
 psalms
 public
 pudding
+puisque
 puke
 punish
 puny
@@ -2552,7 +2580,9 @@ quality
 quantity
 quarrel
 quarter
+que
 queen
+quel
 question
 quick
 quickly
@@ -2619,6 +2649,7 @@ recreation
 red
 redeem
 redeeming
+redevables
 redoubled
 reeds
 reform
@@ -2964,6 +2995,7 @@ solus
 some
 sometime
 sometimes
+sommes
 son
 song
 sons
@@ -3128,6 +3160,7 @@ sun
 sunday
 sung
 sup
+superbe
 superfluous
 supper
 supplied
@@ -3318,7 +3351,9 @@ topples
 topsy
 torches
 toss
-touch
+tou
+touches
+toute
 towards
 towers
 town
@@ -3397,6 +3432,7 @@ twixt
 two
 tying
 ugly
+un
 unapt
 unborn
 unbound

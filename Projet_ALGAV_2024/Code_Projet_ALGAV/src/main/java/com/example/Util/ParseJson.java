@@ -70,7 +70,7 @@ public class ParseJson {
 
     /* Méthode qui permet de parser les noeuds des Tries au format json (key : value). Retourne une table de hachage (<key,value>) ordonné par ordre d'insertion. */
     private static Map<String, Object> parseNode(String jsonString) throws Exception {
-        String newJsonString = jsonString.replaceAll("\s+", "");
+        String newJsonString = jsonString.replaceAll("\\s+", "");
         Map<String, Object> map = new LinkedHashMap<>();
         int i = 0;
 

@@ -1,0 +1,250 @@
+{
+	"label" : "",
+	"is_end_of_word" : false, 
+	"children" : {
+		",": {
+			"label" : ",",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"?": {
+			"label" : "?",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"A": {
+			"label" : "A",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"a": {
+			"label" : "a",
+			"is_end_of_word" : true, 
+			"children" : {
+				"p": {
+					"label" : "ppel",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"c": {
+			"label" : "c",
+			"is_end_of_word" : false, 
+			"children" : {
+				"h": {
+					"label" : "hacune",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"i": {
+					"label" : "i",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"l": {
+					"label" : "lavier",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"o": {
+					"label" : "o",
+					"is_end_of_word" : false, 
+					"children" : {
+						"e": {
+							"label" : "eur",
+							"is_end_of_word" : true, 
+							"children" : {}
+						},
+						"n": {
+							"label" : "nnait",
+							"is_end_of_word" : true, 
+							"children" : {}
+						}
+					}
+				}
+			}
+		},
+		"d": {
+			"label" : "d",
+			"is_end_of_word" : false, 
+			"children" : {
+				"a": {
+					"label" : "actylo",
+					"is_end_of_word" : true, 
+					"children" : {
+						"g": {
+							"label" : "graphie",
+							"is_end_of_word" : true, 
+							"children" : {}
+						}
+					}
+				},
+				"e": {
+					"label" : "e",
+					"is_end_of_word" : true, 
+					"children" : {
+						"s": {
+							"label" : "s",
+							"is_end_of_word" : true, 
+							"children" : {
+								"s": {
+									"label" : "sous",
+									"is_end_of_word" : true, 
+									"children" : {}
+								}
+							}
+						}
+					}
+				},
+				"u": {
+					"label" : "u",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"e": {
+			"label" : "e",
+			"is_end_of_word" : false, 
+			"children" : {
+				"c": {
+					"label" : "crire",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"l": {
+					"label" : "lle",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"f": {
+			"label" : "fait",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"g": {
+			"label" : "gen",
+			"is_end_of_word" : false, 
+			"children" : {
+				"i": {
+					"label" : "ial",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"r": {
+					"label" : "re",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"l": {
+			"label" : "la",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"m": {
+			"label" : "m",
+			"is_end_of_word" : false, 
+			"children" : {
+				"a": {
+					"label" : "achine",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"o": {
+					"label" : "odele",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"n": {
+			"label" : "nous",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"p": {
+			"label" : "p",
+			"is_end_of_word" : false, 
+			"children" : {
+				"a": {
+					"label" : "ar",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"h": {
+					"label" : "hrase",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"r": {
+					"label" : "rofesseur",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"u": {
+					"label" : "uisque",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"q": {
+			"label" : "que",
+			"is_end_of_word" : true, 
+			"children" : {
+				"l": {
+					"label" : "l",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"r": {
+			"label" : "redevables",
+			"is_end_of_word" : true, 
+			"children" : {}
+		},
+		"s": {
+			"label" : "s",
+			"is_end_of_word" : false, 
+			"children" : {
+				"o": {
+					"label" : "ommes",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"u": {
+					"label" : "uperbe",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"t": {
+			"label" : "tou",
+			"is_end_of_word" : false, 
+			"children" : {
+				"c": {
+					"label" : "ches",
+					"is_end_of_word" : true, 
+					"children" : {}
+				},
+				"t": {
+					"label" : "te",
+					"is_end_of_word" : true, 
+					"children" : {}
+				}
+			}
+		},
+		"u": {
+			"label" : "un",
+			"is_end_of_word" : true, 
+			"children" : {}
+		}
+	}
+}

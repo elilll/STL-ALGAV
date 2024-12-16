@@ -262,6 +262,16 @@ public class Main {
         }
     }
 
+    private static void fusionPat(File pat1, File pat2){
+        PatriciaTrie pat1Trie = ConvertJson.convertJsonToPatricia(pat1);
+        PatriciaTrie pat2Trie = ConvertJson.convertJsonToPatricia(pat2);
+
+        pat1Trie.fusion(pat2Trie);
+
+        ConvertJson.convertPatriciaToJson(pat1Trie);
+        System.out.println("Arbre fusionné ajouté dans " + Constant.PATJSONFILE);
+    }
+
     
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -360,6 +370,19 @@ public class Main {
                             countPrefix(file,instruction[3],instruction[1]);
                         } else{
                             throw new IllegalArgumentException("Invalid file path: " + instruction[3]);
+                        }
+                    }else{
+                        throw new IllegalArgumentException("Invalid arguments");
+                    }
+                    break;
+                case "fusionPat": case "FusionPat": case "FUSIONPAT":
+                    if(instruction.length == 3){
+                        File file1 = new File(instruction[1]);
+                        File file2 = new File(instruction[2]);
+                        if(file1.exists()  && file2.exists()){
+                            fusionPat(file1,file2);
+                        }else{
+                            throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
                         throw new IllegalArgumentException("Invalid arguments");

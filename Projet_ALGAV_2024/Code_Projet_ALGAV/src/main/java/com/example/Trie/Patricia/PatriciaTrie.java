@@ -24,6 +24,10 @@ public class PatriciaTrie {
         return this.root;
     }
 
+    public void setRoot(PatriciaTrieNode root){
+        this.root = root;
+    }
+
     /******************************************************* Méthodes annexes *******************************************************/
     /** Méthodes qui permet de savoir si deux chaînes de caratères ont un préfixe commun (utiliser dans insertRec, deleteRec, searchRec)
      * @param s1 : Chaine de caractères 1.
@@ -366,7 +370,10 @@ public class PatriciaTrie {
             }
         }
 
-        insertRec(word, this.root);
+        if(searchWord(word) == false){
+            insertRec(word, this.root);
+        }
+
         return;
     }
 

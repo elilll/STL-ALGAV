@@ -24,7 +24,7 @@ public class HybridTrie {
         this.root = root;
     }
 
-    //Méthodes
+    //Méthodes avancées
 
     /** 
      * Fonction d'insertion d'un mot avec indice 
@@ -32,7 +32,7 @@ public class HybridTrie {
      * @param index : l'indice associé au mot qu'on veut entrer (pour le retrouver aisément plus tard et marquer
      * un noeud comme fin de mot)
     */
-    public void insert(String word, int index) {
+    public void insert(String word) {
         /* Vérifie si le mot entré ne comporte que des caratères du code ASCII < 128 charatères */
         byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
@@ -42,7 +42,7 @@ public class HybridTrie {
         }
         
         if(recherche(word) == false){
-            root = insertRec(root, word, 0, index);
+            root = insertRec(root, word, 0);
         }
     }
 
@@ -54,7 +54,7 @@ public class HybridTrie {
      * @param wordIndex : l'indice associé au mot qu'on veut entrer
      * @return : on retourne le noeud courant modifié (pour correctement mettre à jour la structure du trie)
      */
-    private HybridTrieNode insertRec(HybridTrieNode node, String word, int charIndex, int wordIndex) {
+    private HybridTrieNode insertRec(HybridTrieNode node, String word, int charIndex) {
         char currentChar = word.charAt(charIndex);
 
         if (node == null) {
@@ -63,14 +63,14 @@ public class HybridTrie {
         }
 
         if (currentChar < node.getCar()) {
-            node.getPointeurs()[HybridTrieNode.INF] = insertRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex, wordIndex); // Inf
+            node.getPointeurs()[HybridTrieNode.INF] = insertRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex); // Inf
         } else if (currentChar > node.getCar()) {
-            node.getPointeurs()[HybridTrieNode.SUP] = insertRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex, wordIndex); // Sup
+            node.getPointeurs()[HybridTrieNode.SUP] = insertRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
         } else { // currentChar == node.getCar()
             if (charIndex + 1 == word.length()) { // Si on est bien arrivé à la fin de la lecture de notre mot ...
-                node.setVal(wordIndex); // ... on marque la fin du mot avec son indice
+                node.setVal(HybridTrieNode.ENDWORD); // ... on marque la fin du mot 
             } else { // Sinon : on continue de parcourir l'arbre dans la branche Eq
-                node.getPointeurs()[HybridTrieNode.EQ] = insertRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1, wordIndex); // Eq
+                node.getPointeurs()[HybridTrieNode.EQ] = insertRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
             }
         }
 
@@ -133,7 +133,7 @@ public class HybridTrie {
         }
 
         int count = 0;
-        if (node.getVal() != HybridTrieNode.NOTENDWORD) {
+        if (node.getVal() == HybridTrieNode.ENDWORD) {
             count++; // Si val est différent de -1 (HybridTrieNode.NOTENDWORD), c'est qu'un mot a été ajouté dans le trie
         }
 
@@ -243,7 +243,7 @@ public class HybridTrie {
      */
     private int hauteurRec(HybridTrieNode node){
         if (node == null){
-            return 0;
+            return 1;
         }
 
         int hauteurInf = hauteurRec(node.getPointeurs()[HybridTrieNode.INF]);
@@ -364,6 +364,11 @@ public class HybridTrie {
             return null; 
         }
         
+        // Vérification pour éviter un dépassement d'index
+        if (charIndex >= word.length()) {
+            return node;
+        }
+
         char currentChar = word.charAt(charIndex);
 
         if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOTENDWORD && currentChar == node.getCar()) {
@@ -389,5 +394,80 @@ public class HybridTrie {
         return node;
     }
 
+    //Méthode complexe
+
+    /**
+     * 
+     * @param node
+     * @return
+     */
+    private int hauteurNoeud(HybridTrieNode node) {
+        if (node == null) {
+            return 1; 
+        }
+        return 1 + Math.max(
+            hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF]), 
+            hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP])
+        );
+    }
+
+    /**
+     * 
+     * @param node
+     * @return
+     */
+    private HybridTrieNode rotationDroite(HybridTrieNode node) {
+        HybridTrieNode newRoot = node.getPointeurs()[HybridTrieNode.INF];
+        node.getPointeurs()[HybridTrieNode.INF] = newRoot.getPointeurs()[HybridTrieNode.SUP];
+        newRoot.getPointeurs()[HybridTrieNode.SUP] = node;
+        return newRoot;
+    }
+
+    /**
+     * 
+     * @param node
+     * @return
+     */
+    private HybridTrieNode rotationGauche(HybridTrieNode node) {
+        HybridTrieNode newRoot = node.getPointeurs()[HybridTrieNode.SUP];
+        node.getPointeurs()[HybridTrieNode.SUP] = newRoot.getPointeurs()[HybridTrieNode.INF];
+        newRoot.getPointeurs()[HybridTrieNode.INF] = node;
+        return newRoot;
+    }
+
+    /**
+     * 
+     * @param node
+     * @return
+     */
+    private HybridTrieNode reequilibrer(HybridTrieNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        int hauteurGauche = hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF]);
+        int hauteurDroite = hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP]);
+    
+        // Rotation droite si le sous-arbre gauche est trop profond
+        if (hauteurGauche - hauteurDroite > 1) {
+            if (hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF].getPointeurs()[HybridTrieNode.SUP]) >
+            hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF].getPointeurs()[HybridTrieNode.INF])) {
+                node.getPointeurs()[HybridTrieNode.INF] = rotationGauche(node.getPointeurs()[HybridTrieNode.INF]);
+            }
+            node = rotationDroite(node);
+        }
+    
+        // Rotation gauche si le sous-arbre droit est trop profond
+        if (hauteurDroite - hauteurGauche > 1) {
+            if (hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP].getPointeurs()[HybridTrieNode.INF]) >
+            hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP].getPointeurs()[HybridTrieNode.SUP])) {
+                node.getPointeurs()[HybridTrieNode.SUP] = rotationDroite(node.getPointeurs()[HybridTrieNode.SUP]);
+            }
+            node = rotationGauche(node);
+        }
+    
+        return node;
+    }
+    
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Hybrid.HybridTrieTest" time="0.109" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Hybrid.HybridTrieTest" time="3.862" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508\surefirebooter9043295833652139784.jar C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508 2024-12-14T20-42-19_929-jvmRun1 surefire8533349062987139268tmp surefire_03460177158588229544tmp"/>
+    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire9562971718455405283\surefirebooter10305937567108787771.jar C:\Users\margo\AppData\Local\Temp\surefire9562971718455405283 2024-12-16T20-53-26_710-jvmRun1 surefire15119680497334670512tmp surefire_015675845248487100575tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="com.example.Trie.Hybrid.HybridTrieTest#testHybridTrieBuildJson"/>
+    <property name="test" value="com.example.Trie.Hybrid.HybridTrieTest#testInsertHybridTrie"/>
     <property name="surefire.test.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\margo\.m2\repository\org\json\json\20210307\json-20210307.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\margo"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire8667189271973403508\surefirebooter9043295833652139784.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire9562971718455405283\surefirebooter10305937567108787771.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -60,80 +60,228 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testHybridTrieBuildJson" classname="com.example.Trie.Hybrid.HybridTrieTest" time="0.065">
+  <testcase name="testInsertHybridTrie" classname="com.example.Trie.Hybrid.HybridTrieTest" time="3.739">
     <system-out><![CDATA[*****************************************************************************************
-File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\formatTxt\exempleSimple.txt
-File : 5mots | Hybrid Trie : 5 mots
-Représentation JSON de l'Hybrid Trie :
-{
-	"char": "c",
-	"is_end_of_word": false,
-	"left": {
-		"char": "b",
-		"is_end_of_word": false,
-		"left": null,
-		"middle": {
-			"char": "a",
-			"is_end_of_word": false,
-			"left": null,
-			"middle": {
-				"char": "t",
-				"is_end_of_word": true,
-				"left": null,
-				"middle": null,
-				"right": null
-			},
-			"right": null
-		},
-		"right": null
-	},
-	"middle": {
-		"char": "a",
-		"is_end_of_word": false,
-		"left": null,
-		"middle": {
-			"char": "r",
-			"is_end_of_word": true,
-			"left": null,
-			"middle": {
-				"char": "t",
-				"is_end_of_word": true,
-				"left": null,
-				"middle": null,
-				"right": null
-			},
-			"right": {
-				"char": "t",
-				"is_end_of_word": true,
-				"left": null,
-				"middle": null,
-				"right": null
-			}
-		},
-		"right": null
-	},
-	"right": {
-		"char": "d",
-		"is_end_of_word": false,
-		"left": null,
-		"middle": {
-			"char": "o",
-			"is_end_of_word": false,
-			"left": null,
-			"middle": {
-				"char": "g",
-				"is_end_of_word": true,
-				"left": null,
-				"middle": null,
-				"right": null
-			},
-			"right": null
-		},
-		"right": null
-	}
-}
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\1henryiv.txt
+File : 3723mots | Hybrid Trie : 3723 mots
 Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
-L'hybrid trie créé à partir du fichier exempleSimple.txt contient bien tous les mots de ce fichier
+L'hybrid trie créé à partir du fichier 1henryiv.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\1henryvi.txt
+File : 3725mots | Hybrid Trie : 3725 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier 1henryvi.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\2henryiv.txt
+File : 3963mots | Hybrid Trie : 3963 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier 2henryiv.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\2henryvi.txt
+File : 3935mots | Hybrid Trie : 3935 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier 2henryvi.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\3henryvi.txt
+File : 3448mots | Hybrid Trie : 3448 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier 3henryvi.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\allswell.txt
+File : 3388mots | Hybrid Trie : 3388 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier allswell.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\asyoulikeit.txt
+File : 3170mots | Hybrid Trie : 3170 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier asyoulikeit.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\cleopatra.txt
+File : 3782mots | Hybrid Trie : 3782 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier cleopatra.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\comedy_errors.txt
+File : 2438mots | Hybrid Trie : 2438 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier comedy_errors.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\coriolanus.txt
+File : 3883mots | Hybrid Trie : 3883 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier coriolanus.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\cymbeline.txt
+File : 4057mots | Hybrid Trie : 4057 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier cymbeline.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\hamlet.txt
+File : 4554mots | Hybrid Trie : 4554 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier hamlet.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\henryv.txt
+File : 4393mots | Hybrid Trie : 4393 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier henryv.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\henryviii.txt
+File : 3515mots | Hybrid Trie : 3515 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier henryviii.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\john.txt
+File : 3437mots | Hybrid Trie : 3437 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier john.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\julius_caesar.txt
+File : 2793mots | Hybrid Trie : 2793 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier julius_caesar.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\lear.txt
+File : 4007mots | Hybrid Trie : 4007 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier lear.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\lll.txt
+File : 3637mots | Hybrid Trie : 3637 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier lll.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\macbeth.txt
+File : 3204mots | Hybrid Trie : 3204 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier macbeth.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\measure.txt
+File : 3229mots | Hybrid Trie : 3229 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier measure.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\merchant.txt
+File : 3160mots | Hybrid Trie : 3160 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier merchant.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\merry_wives.txt
+File : 3188mots | Hybrid Trie : 3188 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier merry_wives.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\midsummer.txt
+File : 2914mots | Hybrid Trie : 2914 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier midsummer.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\much_ado.txt
+File : 2907mots | Hybrid Trie : 2907 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier much_ado.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\othello.txt
+File : 3665mots | Hybrid Trie : 3665 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier othello.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\pericles.txt
+File : 3144mots | Hybrid Trie : 3144 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier pericles.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\richardii.txt
+File : 3513mots | Hybrid Trie : 3513 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier richardii.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\richardiii.txt
+File : 3896mots | Hybrid Trie : 3896 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier richardiii.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\romeo_juliet.txt
+File : 3545mots | Hybrid Trie : 3545 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier romeo_juliet.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\taming_shrew.txt
+File : 3149mots | Hybrid Trie : 3149 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier taming_shrew.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\tempest.txt
+File : 3084mots | Hybrid Trie : 3084 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier tempest.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\timon.txt
+File : 3187mots | Hybrid Trie : 3187 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier timon.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\titus.txt
+File : 3306mots | Hybrid Trie : 3306 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier titus.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\troilus_cressida.txt
+File : 4119mots | Hybrid Trie : 4119 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier troilus_cressida.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\twelfth_night.txt
+File : 3030mots | Hybrid Trie : 3030 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier twelfth_night.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\two_gentlemen.txt
+File : 2638mots | Hybrid Trie : 2638 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier two_gentlemen.txt contient bien tous les mots de ce fichier
+
+*****************************************************************************************
+File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\winters_tale.txt
+File : 3714mots | Hybrid Trie : 3714 mots
+Arbre Hybrid Trie ajouté dans src/test/java/com/example/Samples/formatJson/trie.json
+L'hybrid trie créé à partir du fichier winters_tale.txt contient bien tous les mots de ce fichier
 
 ]]></system-out>
   </testcase>

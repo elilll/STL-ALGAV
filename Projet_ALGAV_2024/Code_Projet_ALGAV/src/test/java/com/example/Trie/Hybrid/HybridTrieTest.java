@@ -47,11 +47,11 @@ public class HybridTrieTest {
     @Test
     public void testHybridTrieFunctions(){
         //Insertion
-        arbre.insert("car", HybridTrieNode.ENDWORD);
-        arbre.insert("cat", HybridTrieNode.ENDWORD);
-        arbre.insert("cart", HybridTrieNode.ENDWORD);
-        arbre.insert("dog", HybridTrieNode.ENDWORD);
-        arbre.insert("bat", HybridTrieNode.ENDWORD);
+        arbre.insert("car");
+        arbre.insert("cat");
+        arbre.insert("cart");
+        arbre.insert("dog");
+        arbre.insert("bat");
 
         //Recherche
         assertTrue(arbre.recherche("cat"));
@@ -62,7 +62,7 @@ public class HybridTrieTest {
         assertEquals(5, arbre.comptageMots());
         assertNotEquals(7, arbre.comptageMots());
         assertNotEquals(3, arbre.comptageMots());
-        
+
         //Liste des mots du trie
         listMotsArbre = arbre.listeMots();
         Collections.sort(listMots);
@@ -93,7 +93,7 @@ public class HybridTrieTest {
     
     @Test
     public void testHybridTrieBuildJson(){
-        File file = new File("src/test/java/com/example/Samples/formatTxt/exempleSimple.txt");
+        File file = new File("src/test/java/com/example/Samples/formatTxt/lettres.txt");
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(file,"Aucun fichier trouvé");
@@ -112,15 +112,16 @@ public class HybridTrieTest {
                 contient.add(currentLine);
 
 
-                trie.insert(currentLine, HybridTrieNode.ENDWORD);
+                trie.insert(currentLine);
             }
 
             System.out.println("File : " + contient.size() + "mots | Hybrid Trie : " + trie.comptageMots()+" mots");
             assertEquals(contient.size(), trie.comptageMots(),"Le fichier "+ file.getName() +" ne contient pas le même nombre de mot : " + contient.size() + " que l'hybrid trie : " + trie.comptageMots());
 
             //Affiche le format Json obtenu
-            System.out.println("Représentation JSON de l'Hybrid Trie :");
-            System.out.println(ConvertJson.formatJsonHybrid(trie.getRoot()));
+            // System.out.println("Représentation JSON de l'Hybrid Trie :");
+            // System.out.println(ConvertJson.formatJsonHybrid(trie.getRoot()));
+
             // Écrit dans trie.json
             ConvertJson.convertHybridToJson(trie); 
 
@@ -174,7 +175,7 @@ public class HybridTrieTest {
                         String currentLine = scan.nextLine();
 
                         double startTime = System.nanoTime();
-                        trie.insert(currentLine, HybridTrieNode.ENDWORD);
+                        trie.insert(currentLine);
                         double endTime = System.nanoTime();
 
                         double time = (endTime - startTime);
@@ -204,8 +205,8 @@ public class HybridTrieTest {
                     assertEquals(contient.size(), trie.comptageMots(),"Le fichier "+ file.getName() +" ne contient pas le même nombre de mot : " + contient.size() + " que l'hybrid trie : " + trie.comptageMots());
 
                     //Affiche le format Json obtenu
-                    System.out.println("Représentation JSON de l'Hybrid Trie :");
-                    System.out.println(ConvertJson.formatJsonHybrid(trie.getRoot()));
+                    // System.out.println("Représentation JSON de l'Hybrid Trie :");
+                    // System.out.println(ConvertJson.formatJsonHybrid(trie.getRoot()));
                     // Écrit dans trie.json
                     ConvertJson.convertHybridToJson(trie); 
 
@@ -255,7 +256,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine,HybridTrieNode.ENDWORD);
+                    trie.insert(currentLine);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -307,7 +308,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine, HybridTrieNode.ENDWORD);
+                    trie.insert(currentLine);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -359,7 +360,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine, HybridTrieNode.ENDWORD);
+                    trie.insert(currentLine);
                 }
 
                 double startTime = System.nanoTime();
@@ -367,8 +368,9 @@ public class HybridTrieTest {
                 double endTime = System.nanoTime();
 
                 assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                System.out.println(" Nb de mots : " + countWord);
 
-                writer.write(trie.nbnode + " " + (endTime - startTime)/100000.0);
+                writer.write(countWord + " " + (endTime - startTime)/100000.0);
                 writer.newLine();
 
                 System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.Trie.Hybrid.HybridTrieTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.786 s - in com.example.Trie.Hybrid.HybridTrieTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.862 s - in com.example.Trie.Hybrid.HybridTrieTest

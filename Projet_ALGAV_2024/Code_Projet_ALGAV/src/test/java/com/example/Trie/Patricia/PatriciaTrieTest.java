@@ -1,13 +1,9 @@
 package com.example.Trie.Patricia;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +14,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("CallToPrintStackTrace")
 
@@ -235,15 +232,15 @@ public class PatriciaTrieTest {
                     trie.insertWord(currentLine);
                 }
 
-                Iterator<String> it = contient.iterator();
 
                 double startTime = System.nanoTime();
                 int countWord = trie.countWords() ;
                 double endTime = System.nanoTime();
 
                 assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                System.out.println("Nb de mots : " + countWord);
 
-                writer.write(trie.nbnodes + " " + (endTime - startTime)/100000.0);
+                writer.write(countWord + " " + (endTime - startTime)/100000.0);
                 writer.newLine();
 
                 System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");

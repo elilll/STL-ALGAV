@@ -5,7 +5,8 @@ import java.util.TreeMap;
 
 public class PatriciaTrieNode {
     /************************************************* Attribut *************************************************/
-    private Map<String,PatriciaTrieNode> children = new TreeMap<String,PatriciaTrieNode>(); //Utilisation d'une treeMap pour trier les couples (arête, noeud) par orbre ASCII
+    private Map<String,PatriciaTrieNode> children = new TreeMap<String,PatriciaTrieNode>(); //Utilisation d'une treeMap 
+    //pour trier les couples (arête, noeud) par orbre ASCII
     private boolean endNode; 
 
     /* ************************************************** Constructeur **************************************************

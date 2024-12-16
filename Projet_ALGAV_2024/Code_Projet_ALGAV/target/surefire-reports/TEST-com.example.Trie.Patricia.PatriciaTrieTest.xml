@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Patricia.PatriciaTrieTest" time="1.146" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.Trie.Patricia.PatriciaTrieTest" time="1.628" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire12132111661460541588\surefirebooter5427269971496556344.jar C:\Users\margo\AppData\Local\Temp\surefire12132111661460541588 2024-12-16T16-44-25_165-jvmRun1 surefire16799509259369205692tmp surefire_09501972584777666537tmp"/>
+    <property name="sun.java.command" value="C:\Users\margo\AppData\Local\Temp\surefire7707155493445228441\surefirebooter14218983615889108360.jar C:\Users\margo\AppData\Local\Temp\surefire7707155493445228441 2024-12-16T18-52-22_504-jvmRun1 surefire8768010276352482808tmp surefire_04762734937810296474tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="com.example.Trie.Patricia.PatriciaTrieTest#testCountWordsOfPatriciaTrie"/>
     <property name="surefire.test.class.path" value="C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\test-classes;C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\target\classes;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.2\junit-jupiter-api-5.8.2.jar;C:\Users\margo\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-commons\1.8.2\junit-platform-commons-1.8.2.jar;C:\Users\margo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\margo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.2\junit-jupiter-engine-5.8.2.jar;C:\Users\margo\.m2\repository\org\junit\platform\junit-platform-engine\1.8.2\junit-platform-engine-1.8.2.jar;C:\Users\margo\.m2\repository\org\json\json\20210307\json-20210307.jar;"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire12132111661460541588\surefirebooter5427269971496556344.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\margo\AppData\Local\Temp\surefire7707155493445228441\surefirebooter14218983615889108360.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -60,117 +60,154 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testCountWordsOfPatriciaTrie" classname="com.example.Trie.Patricia.PatriciaTrieTest" time="1.114">
+  <testcase name="testCountWordsOfPatriciaTrie" classname="com.example.Trie.Patricia.PatriciaTrieTest" time="1.551">
     <system-out><![CDATA[*****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\1henryiv.txt
+Nb de mots : 3723
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\1henryvi.txt
+Nb de mots : 3725
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\2henryiv.txt
+Nb de mots : 3963
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\2henryvi.txt
+Nb de mots : 3935
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\3henryvi.txt
+Nb de mots : 3448
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\allswell.txt
+Nb de mots : 3388
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\asyoulikeit.txt
+Nb de mots : 3170
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\cleopatra.txt
+Nb de mots : 3782
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\comedy_errors.txt
+Nb de mots : 2438
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\coriolanus.txt
+Nb de mots : 3883
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\cymbeline.txt
+Nb de mots : 4057
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\hamlet.txt
+Nb de mots : 4554
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\henryv.txt
+Nb de mots : 4393
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\henryviii.txt
+Nb de mots : 3515
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\john.txt
+Nb de mots : 3437
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\julius_caesar.txt
+Nb de mots : 2793
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\lear.txt
+Nb de mots : 4007
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\lll.txt
+Nb de mots : 3637
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\macbeth.txt
+Nb de mots : 3204
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\measure.txt
+Nb de mots : 3229
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\merchant.txt
+Nb de mots : 3160
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\merry_wives.txt
+Nb de mots : 3188
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\midsummer.txt
+Nb de mots : 2914
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\much_ado.txt
+Nb de mots : 2907
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\othello.txt
+Nb de mots : 3665
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\pericles.txt
+Nb de mots : 3144
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\richardii.txt
+Nb de mots : 3513
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\richardiii.txt
+Nb de mots : 3896
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\romeo_juliet.txt
+Nb de mots : 3545
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\taming_shrew.txt
+Nb de mots : 3149
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\tempest.txt
+Nb de mots : 3084
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\timon.txt
+Nb de mots : 3187
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\titus.txt
+Nb de mots : 3306
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\troilus_cressida.txt
+Nb de mots : 4119
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\twelfth_night.txt
+Nb de mots : 3030
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\two_gentlemen.txt
+Nb de mots : 2638
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 *****************************************************************************************
 File : C:\Users\margo\Documents\Dev\Projets\STL-ALGAV\Projet_ALGAV_2024\Code_Projet_ALGAV\src\test\java\com\example\Samples\Shakespeare\winters_tale.txt
+Nb de mots : 3714
 La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés
 ]]></system-out>
   </testcase>

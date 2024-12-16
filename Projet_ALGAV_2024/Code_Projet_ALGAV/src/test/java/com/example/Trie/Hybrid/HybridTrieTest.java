@@ -63,7 +63,7 @@ public class HybridTrieTest {
         assertEquals(23, arbre.comptageNil());
 
         //Hauteur
-        assertEquals(4, arbre.hauteur());
+        assertEquals(5, arbre.hauteur());
 
         //Profondeur moyenne
         assertEquals(3, arbre.profondeurMoyenne());

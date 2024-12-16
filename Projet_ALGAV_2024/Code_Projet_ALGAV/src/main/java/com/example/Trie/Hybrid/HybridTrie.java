@@ -240,7 +240,7 @@ public class HybridTrie {
      */
     private int hauteurRec(HybridTrieNode node){
         if (node == null){
-            return 0;
+            return 1;
         }
 
         int hauteurInf = hauteurRec(node.getPointeurs()[HybridTrieNode.INF]);

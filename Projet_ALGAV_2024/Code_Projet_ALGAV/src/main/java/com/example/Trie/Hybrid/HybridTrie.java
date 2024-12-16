@@ -7,10 +7,12 @@ import java.util.List;
 public class HybridTrie {
     //Attribut
     private HybridTrieNode root; // Racine du trie hybride
+    public int nbnode;
 
     //Constructeur
     public HybridTrie() {
         this.root = null; // Initialisation du trie vide
+        nbnode = 0;
     }
 
     //Getteur et Setteur
@@ -57,6 +59,7 @@ public class HybridTrie {
 
         if (node == null) {
             node = new HybridTrieNode(currentChar);
+            nbnode++;
         }
 
         if (currentChar < node.getCar()) {

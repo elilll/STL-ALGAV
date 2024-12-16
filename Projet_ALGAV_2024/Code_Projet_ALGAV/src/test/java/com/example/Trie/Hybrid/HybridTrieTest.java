@@ -15,12 +15,12 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.example.Trie.Patricia.PatriciaTrie;
 import com.example.Util.ConvertJson;
 
 @SuppressWarnings("CallToPrintStackTrace")
@@ -60,7 +60,9 @@ public class HybridTrieTest {
 
         //Comptage mots
         assertEquals(5, arbre.comptageMots());
-
+        assertNotEquals(7, arbre.comptageMots());
+        assertNotEquals(3, arbre.comptageMots());
+        
         //Liste des mots du trie
         listMotsArbre = arbre.listeMots();
         Collections.sort(listMots);
@@ -82,11 +84,11 @@ public class HybridTrieTest {
         assertEquals(0, arbre.prefixe("e"));
 
         //Suppression
-        arbre.suppression("cat");
+        arbre.suppression("car");
         System.out.println("Mots restants dans le trie : " + arbre.listeMots());
-        assertFalse(arbre.recherche("cat"));
+        assertFalse(arbre.recherche("car"));
         assertTrue(arbre.recherche("cart"));
-        assertTrue(arbre.recherche("car"));
+        assertTrue(arbre.recherche("cat"));
     }
     
     @Test

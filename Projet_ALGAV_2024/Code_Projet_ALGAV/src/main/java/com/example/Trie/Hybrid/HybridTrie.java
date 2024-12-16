@@ -364,6 +364,11 @@ public class HybridTrie {
             return null; 
         }
         
+        // Vérification pour éviter un dépassement d'index
+        if (charIndex >= word.length()) {
+            return node;
+        }
+
         char currentChar = word.charAt(charIndex);
 
         if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOTENDWORD && currentChar == node.getCar()) {

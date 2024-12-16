@@ -33,10 +33,9 @@ public class Main {
             case "1":
                 // Hybrid tries
                 try (Scanner scan = new Scanner(words)) {
-                    int i = 0;
                     HybridTrie trie = new HybridTrie();
                     while(scan.hasNext()){
-                        trie.insert(scan.nextLine(), i++);
+                        trie.insert(scan.nextLine(), HybridTrie.NON_BALANCED);
                     }
                     ConvertJson.convertHybridToJson(trie);
                 }catch(Exception e){

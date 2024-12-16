@@ -6,8 +6,8 @@ public class HybridTrieNode {
     public static final int INF = 0;
     public static final int EQ = 1;
     public static final int SUP = 2;
-    public static final int ENDWORD = 3;
-    public static final int NOTENDWORD = -1; // On met -1 par convention
+    public static final int END_WORD = 3;
+    public static final int NOT_END_WORD = -1; // On met -1 par convention
 
     //Attributs
     private char car;
@@ -17,7 +17,7 @@ public class HybridTrieNode {
     //Constructeur
     public HybridTrieNode(char car) {
         this.car = car;
-        this.val = NOTENDWORD; //Par défaut, le noeud n'est pas une fin de mot
+        this.val = NOT_END_WORD; //Par défaut, le noeud n'est pas une fin de mot
         this.pointeurs = new HybridTrieNode[3];
     }
 

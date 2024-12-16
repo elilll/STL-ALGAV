@@ -116,7 +116,7 @@ public class ConvertJson {
         result.append(tab).append("\t").append("\"char\": \"").append(node.getCar()).append("\",\n");
     
         // "is_end_of_word"
-        if (node.getVal() == HybridTrieNode.ENDWORD) {
+        if (node.getVal() == HybridTrieNode.END_WORD) {
             result.append(tab).append("\t").append("\"is_end_of_word\": ").append("true,\n");
         } else {
             result.append(tab).append("\t").append("\"is_end_of_word\": ").append("false,\n");

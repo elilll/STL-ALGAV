@@ -174,10 +174,10 @@ public class ParseJson {
                             } else // Définir si le nœud est une fin de mot
                         switch (String.valueOf(entry.getValue())) {
                             case "true":
-                                currentNode.setVal(HybridTrieNode.ENDWORD); // Marque la fin d'un mot
+                                currentNode.setVal(HybridTrieNode.END_WORD); // Marque la fin d'un mot
                                 break;
                             case "false":
-                                currentNode.setVal(HybridTrieNode.NOTENDWORD); // Pas une fin de mot
+                                currentNode.setVal(HybridTrieNode.NOT_END_WORD); // Pas une fin de mot
                                 break;
                             default:
                                 throw new Exception("Valeur invalide pour 'is_end_of_word' : " + entry.getValue());

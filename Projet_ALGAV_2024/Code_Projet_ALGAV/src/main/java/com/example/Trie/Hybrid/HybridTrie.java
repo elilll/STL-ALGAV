@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HybridTrie {
+    //Variables globales
+    public static final boolean BALANCED = true;
+    public static final boolean NON_BALANCED = false;
+
     //Attribut
     private HybridTrieNode root; // Racine du trie hybride
     public int nbnode;
@@ -27,12 +31,11 @@ public class HybridTrie {
     //Méthodes avancées
 
     /** 
-     * Fonction d'insertion d'un mot avec indice 
+     * Fonction d'insertion d'un mot 
      * @param word : le mot à insérer dans notre trie
-     * @param index : l'indice associé au mot qu'on veut entrer (pour le retrouver aisément plus tard et marquer
-     * un noeud comme fin de mot)
+     * @param balance : true si on veut rééquilibrer l'arbre (au besoin) à chaque insertion, false sinon
     */
-    public void insert(String word) {
+    public void insert(String word, boolean balance) {
         /* Vérifie si le mot entré ne comporte que des caratères du code ASCII < 128 charatères */
         byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
         for(byte b : bytes){
@@ -42,19 +45,19 @@ public class HybridTrie {
         }
         
         if(recherche(word) == false){
-            root = insertRec(root, word, 0);
+            root = insertRec(root, word, 0, balance);
         }
     }
 
     /**
-     * Fonction récursive d'insertion ( utilisée dans insert() )
+     * Fonction récursive d'insertion d'un mot ( utilisée dans insert() )
      * @param node : le noeud courant sur lequel on doit naviguer
      * @param word : le mot à insérer dans notre trie
      * @param charIndex : le numéro du caractère de word sur lequel on travaille (lettre par lettre)
-     * @param wordIndex : l'indice associé au mot qu'on veut entrer
+     * @param balance : true si on veut rééquilibrer l'arbre (au besoin) à chaque insertion, false sinon
      * @return : on retourne le noeud courant modifié (pour correctement mettre à jour la structure du trie)
      */
-    private HybridTrieNode insertRec(HybridTrieNode node, String word, int charIndex) {
+    private HybridTrieNode insertRec(HybridTrieNode node, String word, int charIndex, boolean balance) {
         char currentChar = word.charAt(charIndex);
 
         if (node == null) {
@@ -63,18 +66,19 @@ public class HybridTrie {
         }
 
         if (currentChar < node.getCar()) {
-            node.getPointeurs()[HybridTrieNode.INF] = insertRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex); // Inf
+            node.getPointeurs()[HybridTrieNode.INF] = insertRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex, balance); // Inf
         } else if (currentChar > node.getCar()) {
-            node.getPointeurs()[HybridTrieNode.SUP] = insertRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
+            node.getPointeurs()[HybridTrieNode.SUP] = insertRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex, balance); // Sup
         } else { // currentChar == node.getCar()
             if (charIndex + 1 == word.length()) { // Si on est bien arrivé à la fin de la lecture de notre mot ...
-                node.setVal(HybridTrieNode.ENDWORD); // ... on marque la fin du mot 
+                node.setVal(HybridTrieNode.END_WORD); // ... on marque la fin du mot 
             } else { // Sinon : on continue de parcourir l'arbre dans la branche Eq
-                node.getPointeurs()[HybridTrieNode.EQ] = insertRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
+                node.getPointeurs()[HybridTrieNode.EQ] = insertRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1, balance); // Eq
             }
         }
 
-        return node;
+        // Rééquilibrer si demandé
+        return balance ? reequilibrer(node) : node;
     }
 
     /**
@@ -106,7 +110,7 @@ public class HybridTrie {
             return rechercheRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex); // Sup
         } else { // currentChar == node.getCar()
             if (charIndex + 1 == word.length()) {
-                return node.getVal() != HybridTrieNode.NOTENDWORD; // On vérifie que le noeud marque bien la fin valide d'un mot dans le trie
+                return node.getVal() != HybridTrieNode.NOT_END_WORD; // On vérifie que le noeud marque bien la fin valide d'un mot dans le trie
             } else {
                 return rechercheRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1); // Eq
             }
@@ -133,7 +137,7 @@ public class HybridTrie {
         }
 
         int count = 0;
-        if (node.getVal() == HybridTrieNode.ENDWORD) {
+        if (node.getVal() == HybridTrieNode.END_WORD) {
             count++; // Si val est différent de -1 (HybridTrieNode.NOTENDWORD), c'est qu'un mot a été ajouté dans le trie
         }
 
@@ -178,7 +182,7 @@ public class HybridTrie {
         liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.SUP], new StringBuilder(prefixe))); // Sup
 
          // Si le noeud marque la fin d'un mot, ajouter le mot complet à la liste
-        if (node.getVal() != HybridTrieNode.NOTENDWORD) {
+        if (node.getVal() != HybridTrieNode.NOT_END_WORD) {
             liste.add(prefixe.toString() + node.getCar());
         }
 
@@ -371,8 +375,8 @@ public class HybridTrie {
 
         char currentChar = word.charAt(charIndex);
 
-        if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOTENDWORD && currentChar == node.getCar()) {
-            node.setVal(HybridTrieNode.NOTENDWORD); // On enlève le marquage de fin de mot
+        if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOT_END_WORD && currentChar == node.getCar()) {
+            node.setVal(HybridTrieNode.NOT_END_WORD); // On enlève le marquage de fin de mot
         } 
 
         if (currentChar < node.getCar()) {
@@ -384,7 +388,7 @@ public class HybridTrie {
         }
 
         // Après avoir traité le mot, vérifier si ce noeud peut être supprimé == il ne contient aucun enfant
-        if (node.getVal() == HybridTrieNode.NOTENDWORD 
+        if (node.getVal() == HybridTrieNode.NOT_END_WORD 
             && node.getPointeurs()[HybridTrieNode.INF] == null
             && node.getPointeurs()[HybridTrieNode.EQ] == null
             && node.getPointeurs()[HybridTrieNode.SUP] == null) {
@@ -397,9 +401,9 @@ public class HybridTrie {
     //Méthode complexe
 
     /**
-     * 
-     * @param node
-     * @return
+     * Fonction qui permet de calculer la hauteur d'un noeud en parcourant ses sous-arbres gauches et droites
+     * @param node : le noeud dont on veut calculer la hauteur
+     * @return : la hauteur du noeud
      */
     private int hauteurNoeud(HybridTrieNode node) {
         if (node == null) {
@@ -412,9 +416,9 @@ public class HybridTrie {
     }
 
     /**
-     * 
-     * @param node
-     * @return
+     * Fonction qui permet de faire une rotation à droite sur le sous-arbre gauche s'il y a un déséquilibre
+     * @param node : le noeud à partir duquel on veut faire la rotation à droite
+     * @return : l'arbre après la rotation
      */
     private HybridTrieNode rotationDroite(HybridTrieNode node) {
         HybridTrieNode newRoot = node.getPointeurs()[HybridTrieNode.INF];
@@ -424,9 +428,9 @@ public class HybridTrie {
     }
 
     /**
-     * 
-     * @param node
-     * @return
+     * Fonction qui permet de faire une rotation à gauche sur le sous-arbre droit s'il y a un déséquilibre
+     * @param node : le noeud à partir duquel on veut faire la rotation à gauche
+     * @return : l'arbre après la rotation
      */
     private HybridTrieNode rotationGauche(HybridTrieNode node) {
         HybridTrieNode newRoot = node.getPointeurs()[HybridTrieNode.SUP];
@@ -436,9 +440,10 @@ public class HybridTrie {
     }
 
     /**
-     * 
-     * @param node
-     * @return
+     * Fonction qui permet de vérifier l'équilibre d'un arbre et d'effectuer les rotations nécessaires au besoin
+     * NB : nous avons choisi un seuil de 1 pour déterminer si un arbre est déséquilibré ou non
+     * @param node : le noeud à partir duquel on veut appliquer le rééquilibrage
+     * @return : l'arbre rééquilibré
      */
     private HybridTrieNode reequilibrer(HybridTrieNode node) {
         if (node == null) {
@@ -448,7 +453,7 @@ public class HybridTrie {
         int hauteurGauche = hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF]);
         int hauteurDroite = hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP]);
     
-        // Rotation droite si le sous-arbre gauche est trop profond
+        // Rotation droite si le sous-arbre gauche est trop profond == la différence de hauteur entre les deux sous-arbres est supérieure à 1
         if (hauteurGauche - hauteurDroite > 1) {
             if (hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF].getPointeurs()[HybridTrieNode.SUP]) >
             hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF].getPointeurs()[HybridTrieNode.INF])) {
@@ -457,7 +462,7 @@ public class HybridTrie {
             node = rotationDroite(node);
         }
     
-        // Rotation gauche si le sous-arbre droit est trop profond
+        // Rotation gauche si le sous-arbre droit est trop profond == la différence de hauteur entre les deux sous-arbres est supérieure à 1
         if (hauteurDroite - hauteurGauche > 1) {
             if (hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP].getPointeurs()[HybridTrieNode.INF]) >
             hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP].getPointeurs()[HybridTrieNode.SUP])) {

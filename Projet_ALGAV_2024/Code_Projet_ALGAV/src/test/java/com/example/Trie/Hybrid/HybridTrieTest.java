@@ -149,6 +149,9 @@ public class HybridTrieTest {
     public void testInsertHybridTrie() {
         assertNotNull(folder,"Aucun répertoire trouvé");
         File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
+        int lg = 0;
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(listOfFiles,"Aucun fichier trouvé");
@@ -176,14 +179,18 @@ public class HybridTrieTest {
                         String currentLine = scan.nextLine();
 
                         double startTime = System.nanoTime();
-                        trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                        trie.insert(currentLine, HybridTrie.BALANCED);
+                        if(trie.cmplx_insert != 0){
+                            res += trie.cmplx_insert;
+                            nb++;
+                            lg += currentLine.length();
+                        }
                         double endTime = System.nanoTime();
 
                         double time = (endTime - startTime);
                     
                         sum += time;
                         insertWriter.write(currentLine.length() + " " + time/100000.0);
-                        //writer.write(trie.nbnode + " " + time);
                         insertWriter.newLine();
                         nbOfWord++;
 
@@ -192,7 +199,6 @@ public class HybridTrieTest {
                             writer.newLine();
                         }
                 
-                        //trie.nbnode=0;
                         contient.add(currentLine);
                     }
 
@@ -232,12 +238,16 @@ public class HybridTrieTest {
         }catch(IOException e){
             e.getStackTrace();
         }
+        System.out.println(res/nb);
+        System.out.println(lg/nb);
     }
 
     @Test
     public void testDeleteWordsOfHybridTrie() {
         assertNotNull(folder,"Aucun répertoire trouvé");
         File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(listOfFiles,"Aucun fichier trouvé");
@@ -257,7 +267,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                    trie.insert(currentLine, HybridTrie.BALANCED);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -268,6 +278,8 @@ public class HybridTrieTest {
                     trie.suppression(word);
                     double endTime = System.nanoTime();
                     it.remove();
+                    res+=trie.cmplx_suppression;
+                    nb++;
                     writer.write(word.length() + " " + (endTime - startTime)/100000.0);
                     writer.newLine();
                 }
@@ -284,12 +296,15 @@ public class HybridTrieTest {
         }catch(IOException e){
             e.getStackTrace();
         }
+        System.out.println(res/nb);
     }
 
     @Test
     public void testSearchWordsOfHybridTrie() {
         assertNotNull(folder,"Aucun répertoire trouvé");
         File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(listOfFiles,"Aucun fichier trouvé");
@@ -309,7 +324,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                    trie.insert(currentLine, HybridTrie.BALANCED);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -318,6 +333,8 @@ public class HybridTrieTest {
                     String word = it.next();
                     double startTime = System.nanoTime();
                     boolean found = trie.recherche(word);
+                    res+=trie.cmplx_recherche;
+                    nb++;
                     double endTime = System.nanoTime();
                     it.remove();
                     writer.write(word.length() + " " + (endTime - startTime)/100000.0);
@@ -336,12 +353,15 @@ public class HybridTrieTest {
         }catch(IOException e){
             e.getStackTrace();
         }
+        System.out.println(res/nb);
     }
 
     @Test
     public void testCountWordsOfHybridTrie() {
         assertNotNull(folder,"Aucun répertoire trouvé");
         File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(listOfFiles,"Aucun fichier trouvé");
@@ -361,11 +381,13 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                    trie.insert(currentLine, HybridTrie.BALANCED);
                 }
 
                 double startTime = System.nanoTime();
                 int countWord = trie.comptageMots() ;
+                res+=trie.cmplx_comptage_mots;
+                nb++;
                 double endTime = System.nanoTime();
 
                 assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
@@ -382,5 +404,196 @@ public class HybridTrieTest {
         }catch(IOException e){
             e.getStackTrace();
         }
+        System.out.println(res/nb);
     }
+
+    @Test
+    public void testCountNilsOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("count_nils_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+                    trie.insert(currentLine, HybridTrie.BALANCED);
+                }
+
+                double startTime = System.nanoTime();
+                trie.comptageNil();
+                double endTime = System.nanoTime();
+                writer.write("Nb nils : " + trie.comptageNil() + ", Nb nodes : " + trie.nb_node + ", Time : "+ (endTime - startTime)/100000.0);
+                writer.newLine();
+                writer.flush();
+
+                res+=trie.cmplx_comptage_nils;
+                nb++;
+
+                System.out.println("La méthode de comptage de nils est bien fonctionnelle, tous les nils ont été comptés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+    
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+        System.out.println(res/nb);
+    }
+
+    @Test
+    public void testHauteurOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("hauteur_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+                    trie.insert(currentLine, HybridTrie.BALANCED);
+                }
+
+                double startTime = System.nanoTime();
+                trie.hauteur();
+                double endTime = System.nanoTime();
+                res+=trie.cmplx_hauteur;
+                nb++;
+                writer.write("Hauteur : " + trie.hauteur() + ", Nb nodes : " + trie.nb_node + ", Time : "+ (endTime - startTime)/100000.0);
+                writer.newLine();
+                writer.flush();
+
+                System.out.println("La méthode de calcul de la hauteur est bien fonctionnelle.");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+        System.out.println(res/nb);
+    }
+
+    @Test
+    public void testProfondeurOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("profondeur_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+                    trie.insert(currentLine, HybridTrie.BALANCED);
+                }
+
+                double startTime = System.nanoTime();
+                trie.profondeurMoyenne();
+                double endTime = System.nanoTime();
+                res+=trie.cmplx_profondeur;
+                nb++;
+                writer.write("Profondeure : " + trie.profondeurMoyenne() + ", Nb nodes : " + trie.nb_node + ", Time : "+ (endTime - startTime)/100000.0);
+                writer.newLine();
+                writer.flush();
+
+                System.out.println("La méthode de calcul de la profondeure moyenne des feuilles est bien fonctionnelle.");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+        System.out.println(res/nb);
+    }
+
+    @Test
+    public void testPrefixeOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+        int res = 0;
+        int nb = 0;
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("prefixe_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                }
+
+                Iterator<String> it = contient.iterator();
+
+                while(it.hasNext()) {
+                    String word = it.next();
+                    double startTime = System.nanoTime();
+                    trie.prefixe(word);
+                    double endTime = System.nanoTime();
+                    it.remove();
+                    res+=trie.cmplx_prefixe;
+                    nb++;
+                    writer.write(trie.prefixe(word) + " " + (endTime - startTime)/100000.0);
+                    writer.newLine();
+                }
+
+                writer.flush();
+
+                System.out.println("La méthode de prefixe est bien fonctionnelle.");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+        System.out.println(res/nb);
+    }
+
 }

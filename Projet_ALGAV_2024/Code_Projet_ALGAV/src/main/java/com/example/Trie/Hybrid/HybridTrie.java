@@ -244,7 +244,6 @@ public class HybridTrie {
     public int comptageNil(){
         cmplx_comptage_nils = 0;
         if (root == null) {
-            System.out.println("null");
             return 0; // Si la racine est null, aucun pointeur à compter
         }
         int nils = comptageNilRec(root);
@@ -424,7 +423,7 @@ public class HybridTrie {
         if(recherche(word) == true){
             root = suppressionRec(root, word, 0);
             //On affiche la complexité finale
-            System.out.println("Complexité de la suppression du mot " + word + " : " + cmplx_suppression);
+            //System.out.println("Complexité de la suppression du mot " + word + " : " + cmplx_suppression);
         }else{
             System.out.println("Le mot que vous cherchez à supprimer n'existe pas dans le trie hybride");
         }

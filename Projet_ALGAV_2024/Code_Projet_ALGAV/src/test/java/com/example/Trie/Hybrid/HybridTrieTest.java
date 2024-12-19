@@ -94,7 +94,7 @@ public class HybridTrieTest {
     
     @Test
     public void testHybridTrieBuildJson(){
-        File file = new File("src/test/java/com/example/Samples/formatTxt/lettres.txt");
+        File file = new File("src/test/java/com/example/Samples/formatTxt/ExempleDeBase.txt");
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(file,"Aucun fichier trouvé");
@@ -113,7 +113,7 @@ public class HybridTrieTest {
                 contient.add(currentLine);
 
 
-                trie.insert(currentLine, HybridTrie.NON_BALANCED);
+                trie.insert(currentLine, HybridTrie.BALANCED);
             }
 
             System.out.println("File : " + contient.size() + "mots | Hybrid Trie : " + trie.comptageMots()+" mots");

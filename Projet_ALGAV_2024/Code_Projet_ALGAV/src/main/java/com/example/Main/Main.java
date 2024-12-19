@@ -48,6 +48,46 @@ public class Main {
         }
     }
 
+    //Version pour les Tries hybrides
+    //balance == "true" : insertion avec rééquilibrage
+    //balance == "false" : insertion sans rééquilibrage
+    private static void insert(File words, String modeTrie, String balance){
+        switch (modeTrie) {
+            case "0":
+                throw new IllegalArgumentException("Invalid instruction (0). Please try with hybrid tries (1).");
+            case "1":
+                // Hybrid tries
+                switch(balance){
+                    case "true":
+                        try (Scanner scan = new Scanner(words)) {
+                            HybridTrie trie = new HybridTrie();
+                            while(scan.hasNext()){
+                                trie.insert(scan.nextLine(), HybridTrie.BALANCED);
+                            }
+                            ConvertJson.convertHybridToJson(trie);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "false":
+                        try (Scanner scan = new Scanner(words)) {
+                            HybridTrie trie = new HybridTrie();
+                            while(scan.hasNext()){
+                                trie.insert(scan.nextLine(), HybridTrie.NON_BALANCED);
+                            }
+                            ConvertJson.convertHybridToJson(trie);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
+                    default: 
+                        throw new IllegalArgumentException("Invalid instruction : 4th argument isn't true or false. Please try with valid arguments, or none.");
+                }
+            default : throw new IllegalArgumentException("Invalid instruction: "  + modeTrie +"(0-PatriciaTrie; 1-HybridTrie) ");
+                
+        }
+    }
+
     private static void delete(File words, String modeTrie){
         switch (modeTrie) {
             case "0":
@@ -279,17 +319,30 @@ public class Main {
 
             switch (instruction[0]) {
                 case "inserer": case "Inserer" : case "INSERER":
-                    if(instruction.length == 3){
-                        File file = new File(instruction[2]);
-                        if(file.exists()){
-                            insert(file,instruction[1]);
-                        }else{
-                            throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
+                switch (instruction.length) {
+                    case 3: //3 arguments --> insertion de base
+                        {
+                            File file = new File(instruction[2]);
+                            if(file.exists()){
+                                insert(file,instruction[1]);
+                            }else{
+                                throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
+                            }   break;
                         }
-                    }else{
-                        throw new IllegalArgumentException("Invalid arguments");
-                    }
+                    case 4: //4 arguments --> pour indiquer si on veut rééquilibrer le Trie hybride à chaque insertion
+                        {
+                            File file = new File(instruction[2]);
+                            if(file.exists()){
+                                insert(file,instruction[1], instruction[4]);
+                            }else{
+                                throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
+                            } 
+                        }
+                    default:
+                        throw new IllegalArgumentException("Invalid number of arguments");
+                }
                     break;
+
                 case "supprimer": case"Supprimer": case "SUPPRIMER":
                     if(instruction.length == 3){
                         File file = new File(instruction[2]);
@@ -299,7 +352,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "comptermots" : case "compterMots": case "Comptermots": case "CompterMots": case "COMPTERMOTS":
@@ -311,7 +364,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "compternils": case "compterNils": case "Compternils": case "CompterNils": case "COMPTERNILS":
@@ -323,7 +376,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "hauteur": case "Hauteur": case "HAUTEUR":
@@ -335,7 +388,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "profondeurMoyenne" : case "ProfondeurMoyenne" : case "PROFONDEURMOYENNE" :
@@ -347,7 +400,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "listeMots": case "ListeMots": case "LISTEMOTS":
@@ -359,7 +412,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "prefixe": case "Prefixe": case "PREFIXE":
@@ -371,7 +424,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[3]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 case "fusionPat": case "FusionPat": case "FUSIONPAT":
@@ -384,7 +437,7 @@ public class Main {
                             throw new IllegalArgumentException("Invalid file path: " + instruction[2]);
                         }
                     }else{
-                        throw new IllegalArgumentException("Invalid arguments");
+                        throw new IllegalArgumentException("Invalid number of arguments");
                     }
                     break;
                 default:

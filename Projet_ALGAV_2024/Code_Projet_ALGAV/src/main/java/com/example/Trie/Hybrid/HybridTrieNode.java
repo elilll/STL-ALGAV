@@ -1,8 +1,8 @@
 package com.example.Trie.Hybrid;
 
 public class HybridTrieNode {
-    //Variables globales
-    /** Variables globales pour accéder aux pointeurs de l'arbre plus simplement, permet de faciliter la lecture */
+    //Constantes
+    /** Constantes pour accéder aux pointeurs de l'arbre plus simplement, permet de faciliter la lecture */
     public static final int INF = 0;
     public static final int EQ = 1;
     public static final int SUP = 2;

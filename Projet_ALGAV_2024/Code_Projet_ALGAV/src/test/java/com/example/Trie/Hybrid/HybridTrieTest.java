@@ -52,6 +52,7 @@ public class HybridTrieTest {
         arbre.insert("cart", HybridTrie.NON_BALANCED);
         arbre.insert("dog", HybridTrie.NON_BALANCED);
         arbre.insert("bat", HybridTrie.NON_BALANCED);
+        System.out.println("Nombre de noeuds dans l'arbre : " + arbre.nb_node);
 
         //Recherche
         assertTrue(arbre.recherche("cat"));

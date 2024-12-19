@@ -5,18 +5,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HybridTrie {
-    //Variables globales
+    //Varibales pour calculer les complexités effectives
+    public int cmplx_insert;
+    public int cmplx_recherche;
+    public int cmplx_comptage_mots;
+    public int cmplx_liste_mots;
+    public int cmplx_comptage_nils;
+    public int cmplx_hauteur;
+    public int cmplx_profondeur;
+    public int cmplx_prefixe;
+    public int cmplx_suppression;
+    public int nb_node;
+
+    //Constantes
     public static final boolean BALANCED = true;
     public static final boolean NON_BALANCED = false;
 
     //Attribut
     private HybridTrieNode root; // Racine du trie hybride
-    public int nbnode;
 
     //Constructeur
     public HybridTrie() {
         this.root = null; // Initialisation du trie vide
-        nbnode = 0;
+        this.cmplx_comptage_mots = 0;
+        this.cmplx_comptage_nils = 0;
+        this.cmplx_hauteur = 0;
+        this.cmplx_insert = 0;
+        this.cmplx_liste_mots = 0;
+        this.cmplx_prefixe = 0;
+        this.cmplx_profondeur = 0;
+        this.cmplx_recherche = 0;
+        this.cmplx_suppression = 0;
+        this.nb_node = 0;
     }
 
     //Getteur et Setteur
@@ -44,8 +64,12 @@ public class HybridTrie {
             }
         }
         
+        cmplx_insert = 0; // A chaque appel de la fonction, on réinitialise la complexité
+
         if(recherche(word) == false){
             root = insertRec(root, word, 0, balance);
+            //On affiche la complexité après chaque ajout
+            //System.out.println("Complexité de l'ajout du mot " + word + " : " + cmplx_insert);
         }
     }
 
@@ -62,9 +86,10 @@ public class HybridTrie {
 
         if (node == null) {
             node = new HybridTrieNode(currentChar);
-            nbnode++;
+            nb_node++;
         }
 
+        cmplx_insert++;
         if (currentChar < node.getCar()) {
             node.getPointeurs()[HybridTrieNode.INF] = insertRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex, balance); // Inf
         } else if (currentChar > node.getCar()) {
@@ -87,7 +112,11 @@ public class HybridTrie {
      * @return : true si le mot est présent dans le trie, false sinon
      */
     public boolean recherche(String word){
-        return rechercheRec(root, word, 0);
+        cmplx_recherche = 0; // A chaque appel de la fonction, on réinitialise la complexité
+        boolean found = rechercheRec(root, word, 0);
+        //On affiche la complexité après chaque recherche
+        //System.out.println("Complexité de la recherche du mot " + word + " : " + cmplx_recherche);
+        return found;
     }
 
     /**
@@ -104,6 +133,7 @@ public class HybridTrie {
             return false;
         }
 
+        cmplx_recherche++;
         if (currentChar < node.getCar()) {
             return rechercheRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);  // Inf
         } else if (currentChar > node.getCar()) {
@@ -122,7 +152,11 @@ public class HybridTrie {
      * @return : le nombre de mots dans le dictionnaire
      */
     public int comptageMots(){
-        return comptageMotsRec(root);
+        cmplx_comptage_mots = 0;
+        int res = comptageMotsRec(root);
+        //On affiche la complexité finale
+        //System.out.println("Complexité de comptage des mots dans le trie : " + cmplx_comptage_mots);
+        return res;
     }
 
     /**
@@ -137,6 +171,7 @@ public class HybridTrie {
         }
 
         int count = 0;
+        cmplx_comptage_mots++;
         if (node.getVal() == HybridTrieNode.END_WORD) {
             count++; // Si val est différent de -1 (HybridTrieNode.NOTENDWORD), c'est qu'un mot a été ajouté dans le trie
         }
@@ -154,9 +189,13 @@ public class HybridTrie {
      * @return : la liste des mots du trie
      */
     public List<String> listeMots(){
+        cmplx_liste_mots = 0;
         // On utilise un StringBuilder pour éviter les copies inutiles de String lors des modifications
         StringBuilder prefixe = new StringBuilder();
-        return listeMotsRec(root, prefixe);
+        List<String> finalList = listeMotsRec(root, prefixe);
+        //On affiche la complexité finale
+        //System.out.println("Complexité de la création de la liste des mots : " + cmplx_liste_mots);
+        return finalList;
     }
 
     /**
@@ -173,15 +212,21 @@ public class HybridTrie {
         }
 
         // On parcourt récursivement les trois sous-arbres du noeud courant
+        cmplx_liste_mots++;
         liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.INF], new StringBuilder(prefixe))); // Inf
 
+        cmplx_liste_mots++;
         prefixe.append(node.getCar()); // On ajoute le caractère pour explorer le sous-arbre Eq
+        cmplx_liste_mots++;
         liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.EQ], prefixe)); // Eq
+        cmplx_liste_mots++;
         prefixe.deleteCharAt(prefixe.length() - 1); // On retire le caractère après avoir exploré Eq
 
+        cmplx_liste_mots++;
         liste.addAll(listeMotsRec(node.getPointeurs()[HybridTrieNode.SUP], new StringBuilder(prefixe))); // Sup
 
-         // Si le noeud marque la fin d'un mot, ajouter le mot complet à la liste
+        // Si le noeud marque la fin d'un mot, ajouter le mot complet à la liste
+        cmplx_liste_mots++;
         if (node.getVal() != HybridTrieNode.NOT_END_WORD) {
             liste.add(prefixe.toString() + node.getCar());
         }
@@ -197,11 +242,15 @@ public class HybridTrie {
      * @return : nombre de pointeurs vides
      */
     public int comptageNil(){
+        cmplx_comptage_nils = 0;
         if (root == null) {
             System.out.println("null");
             return 0; // Si la racine est null, aucun pointeur à compter
         }
-        return comptageNilRec(root);
+        int nils = comptageNilRec(root);
+        //On affiche la complexité finale
+        //System.out.println("Complexité du calcul du nombre de Nils : " + cmplx_comptage_nils);
+        return nils;
     }
 
     /**
@@ -218,6 +267,7 @@ public class HybridTrie {
 
         // Pour chaque noeud, on regarde si les cases de pointeurs sont à null ou non
         for(HybridTrieNode fils : root.getPointeurs()){
+            cmplx_comptage_nils++;
             if (fils == null){
                 count++;
             }
@@ -237,7 +287,11 @@ public class HybridTrie {
      * @return : hauteur du trie
      */
     public int hauteur(){
-        return hauteurRec(root);
+        cmplx_hauteur = 0;
+        int hauteur = hauteurRec(root);
+        //On affiche la complexité finale
+        //System.out.println("Complexité du calcul de la hauteur : " + cmplx_hauteur);
+        return hauteur;
     }
 
     /**
@@ -254,6 +308,7 @@ public class HybridTrie {
         int hauteurEq = hauteurRec(node.getPointeurs()[HybridTrieNode.EQ]);
         int hauteurSup = hauteurRec(node.getPointeurs()[HybridTrieNode.SUP]);
 
+        cmplx_hauteur++;
         return 1 + Math.max(hauteurInf, Math.max(hauteurEq, hauteurSup));
     }
 
@@ -265,12 +320,15 @@ public class HybridTrie {
      * @return : la profondeur moyenne des feuilles de l'arbre
      */
     public int profondeurMoyenne() {
+        cmplx_profondeur = 0;
         int[] result = new int[2];
         profondeurMoyenneRec(root, 0, result);
         
         if (result[1] == 0) {
             return 0; // Pour ne pas diviser par 0 (cas où on n'a pas de feuilles == trie vide)
         }
+        //On affiche la complexité finale
+        //System.out.println("Complexité du calcul de la profondeur moyenne des feuilles : " + cmplx_profondeur);
         return result[0] / result[1];
     }
     
@@ -286,6 +344,7 @@ public class HybridTrie {
         }
     
         // On vérifie si le noeud courant est une feuille ou pas
+        cmplx_profondeur++;
         if (node.getPointeurs()[HybridTrieNode.INF] == null &&
             node.getPointeurs()[HybridTrieNode.EQ] == null &&
             node.getPointeurs()[HybridTrieNode.SUP] == null) {
@@ -310,13 +369,22 @@ public class HybridTrie {
      * @return : le nombre de mot dont A est le préfixe
      */
     public int prefixe(String word){
+        cmplx_prefixe = 0;
+        cmplx_comptage_mots = 0;
         HybridTrieNode node = goToNodeFromWord(root, word, 0);
 
         if (node == null){
             return 0;
         }
         
-        return comptageMotsRec(node);
+        int res = comptageMotsRec(node);
+
+        //On affiche la complexité finale
+        // System.out.println("Complexité pour le parcours du préfixe : " + cmplx_prefixe);
+        // System.out.println("Complexité pour le comptage des mots : " + cmplx_comptage_mots);
+        // System.out.println("Complexité totale pour le prefixe " + word + " : " + (cmplx_prefixe + cmplx_comptage_mots));
+
+        return res;
     }
 
     /**
@@ -334,10 +402,13 @@ public class HybridTrie {
         char currentChar = word.charAt(charIndex);
 
         if (currentChar < node.getCar()) {
+            cmplx_prefixe++;
             return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);
         } else if (currentChar > node.getCar()) {
+            cmplx_prefixe++;
             return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex);
         } else {
+            cmplx_prefixe++;
             return goToNodeFromWord(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1);
         }
     }
@@ -348,8 +419,12 @@ public class HybridTrie {
      * @param word : le mot à supprimer
      */
     public void suppression(String word){
+        cmplx_suppression = 0;
+
         if(recherche(word) == true){
             root = suppressionRec(root, word, 0);
+            //On affiche la complexité finale
+            System.out.println("Complexité de la suppression du mot " + word + " : " + cmplx_suppression);
         }else{
             System.out.println("Le mot que vous cherchez à supprimer n'existe pas dans le trie hybride");
         }
@@ -375,19 +450,24 @@ public class HybridTrie {
 
         char currentChar = word.charAt(charIndex);
 
+        cmplx_suppression++;
         if (charIndex + 1 == word.length() && node.getVal() != HybridTrieNode.NOT_END_WORD && currentChar == node.getCar()) {
             node.setVal(HybridTrieNode.NOT_END_WORD); // On enlève le marquage de fin de mot
         } 
 
         if (currentChar < node.getCar()) {
+            cmplx_suppression++;
             node.getPointeurs()[HybridTrieNode.INF] = suppressionRec(node.getPointeurs()[HybridTrieNode.INF], word, charIndex);
         } else if (currentChar > node.getCar()) {
+            cmplx_suppression++;
             node.getPointeurs()[HybridTrieNode.SUP] = suppressionRec(node.getPointeurs()[HybridTrieNode.SUP], word, charIndex);
         } else { // currentChar == node.getCar()
+            cmplx_suppression++;
             node.getPointeurs()[HybridTrieNode.EQ] = suppressionRec(node.getPointeurs()[HybridTrieNode.EQ], word, charIndex + 1);
         }
 
         // Après avoir traité le mot, vérifier si ce noeud peut être supprimé == il ne contient aucun enfant
+        cmplx_suppression++;
         if (node.getVal() == HybridTrieNode.NOT_END_WORD 
             && node.getPointeurs()[HybridTrieNode.INF] == null
             && node.getPointeurs()[HybridTrieNode.EQ] == null

@@ -202,24 +202,14 @@ public class HybridTrieTest {
                     insertGlobalWriter.flush();
 
                     System.out.println("File : " + contient.size() + "mots | Hybrid Trie : " + trie.comptageMots()+" mots");
-                    assertEquals(contient.size(), trie.comptageMots(),"Le fichier "+ file.getName() +" ne contient pas le même nombre de mot : " + contient.size() + " que l'hybrid trie : " + trie.comptageMots());
-
-                    //Affiche le format Json obtenu
-                    // System.out.println("Représentation JSON de l'Hybrid Trie :");
-                    // System.out.println(ConvertJson.formatJsonHybrid(trie.getRoot()));
-                    // Écrit dans trie.json
-                    ConvertJson.convertHybridToJson(trie); 
+                    assertEquals(contient.size(), trie.comptageMots(),"Le fichier "+ file.getName() +" ne contient pas le même nombre de mot : " + contient.size() + " que l'hybrid trie : " + trie.comptageMots()); 
 
                     List<String> getWordsTrie = trie.listeMots();
-                    int countWords = getWordsTrie.size();
 
-                    while(!contient.isEmpty()) {
-                        if(contient.contains(getWordsTrie.get(countWords - 1))){
-                            contient.remove(getWordsTrie.get(countWords - 1));
-                            countWords--;
-                        }else {
-                            assertTrue(contient.contains(getWordsTrie.get(countWords - 1)), "Ce mots : "+ getWordsTrie.get(countWords - 1)+"n'est pas dans le texte original");
-                        }
+                    if(getWordsTrie.containsAll(contient)){
+                        System.out.println("L'arbre patricia créer à partir du fichier "+ file.getName() + " contient bien tous les mots de ce fichier\n");
+                    }else{
+                        assertTrue(false, "L'arbre patricia créer à partir du fichier "+ file.getName() + " ne contient pas tous les mots de ce fichier\n");
                     }
 
                     System.out.println("L'hybrid trie créé à partir du fichier "+ file.getName() + " contient bien tous les mots de ce fichier\n");
@@ -374,6 +364,194 @@ public class HybridTrieTest {
                 writer.newLine();
 
                 System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testCountNilssOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("countNils_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insert(currentLine);
+                }
+
+                double startTime = System.nanoTime();
+                trie.comptageNil();
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println(" Nb de mots : " + countWord);
+
+                writer.write(trie.nbnode + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testHeightOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("height_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insert(currentLine);
+                }
+
+                double startTime = System.nanoTime();
+                trie.hauteur() ;
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println(" Nb de mots : " + countWord);
+
+                writer.write(trie.nbnode + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testHeightMeanOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("meanHeight_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insert(currentLine);
+                }
+
+                double startTime = System.nanoTime();
+                trie.profondeurMoyenne();
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println(" Nb de mots : " + countWord);
+
+                writer.write(trie.nbnode + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testListeMotsOfHybridTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("listeMots_times_hyb.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                HybridTrie trie = new HybridTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insert(currentLine);
+                }
+
+                double startTime = System.nanoTime();
+                List<String> liste = trie.listeMots();
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println(" Nb de mots : " + countWord);
+
+                for(String word : liste){
+                    assertTrue(contient.contains(word),"Le mot ne fait pas partie du fichier de base");
+                }
+
+                writer.write(trie.nbnode + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
             }catch(Exception e){
                 e.printStackTrace();
             }

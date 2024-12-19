@@ -32,27 +32,21 @@ public class ConvertJson {
         /* Children */
         result.append(tab).append("\"children\" : {");
 
-        int i=0;
         boolean getchildren = false;
 
-        for(Map.Entry<String,PatriciaTrieNode> children : node.getChildren().entrySet()){
+        for(Map.Entry<Character,PatriciaTrieNode> children : node.getChildren().entrySet()){
             getchildren=true;
             result.append("\n");
-            if(i+1 == node.getChildren().size()){
-                result.append(tab).append("\t").append("\"").append(children.getKey().charAt(0)).append("\": {\n");
-                patriciaTrieString(tab + "\t\t", children.getValue(), result, children.getKey());
 
-                result.append(tab).append("\t").append("}\n");
-            }else{
-                result.append(tab).append("\t").append("\"").append(children.getKey().charAt(0)).append("\": {\n");
-                patriciaTrieString(tab + "\t\t", children.getValue(), result, children.getKey());
-                result.append(tab).append("\t").append("},");
-            }
-            i++;
+            result.append(tab).append("\t").append("\"").append(children.getKey()).append("\": {\n");
+            patriciaTrieString(tab + "\t\t", children.getValue(), result, children.getValue().getEdge());
+            result.append(tab).append("\t").append("},");
+            
         }
 
         if(getchildren){
-            result.append(tab);
+            result.deleteCharAt(result.length() - 1);
+            result.append("\n").append(tab);
         }
         
         result.append("}\n");

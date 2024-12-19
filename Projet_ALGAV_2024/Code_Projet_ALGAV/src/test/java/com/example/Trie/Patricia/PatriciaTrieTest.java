@@ -83,15 +83,10 @@ public class PatriciaTrieTest {
 
                     List<String> getWordsTrie = trie.getWords();
 
-                    int countWords = getWordsTrie.size();
-
-                    while(!contient.isEmpty()) {
-                        if(contient.contains(getWordsTrie.get(countWords - 1))){
-                            contient.remove(getWordsTrie.get(countWords - 1));
-                            countWords--;
-                        }else {
-                            assertTrue(contient.contains(getWordsTrie.get(countWords - 1)), "Ce mots : "+ getWordsTrie.get(countWords - 1)+"n'est pas dans le texte original");
-                        }
+                    if(getWordsTrie.containsAll(contient)){
+                        System.out.println("L'arbre patricia créer à partir du fichier "+ file.getName() + " contient bien tous les mots de ce fichier\n");
+                    }else{
+                        assertTrue(false, "L'arbre patricia créer à partir du fichier "+ file.getName() + " ne contient pas tous les mots de ce fichier\n");
                     }
 
                     System.out.println("L'arbre patricia créer à partir du fichier "+ file.getName() + " contient bien tous les mots de ce fichier\n");
@@ -253,7 +248,196 @@ public class PatriciaTrieTest {
         }
     }
 
+    @Test
+    public void testCountNilsOfPatriciaTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
 
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("countNils_times_pat.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                PatriciaTrie trie = new PatriciaTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insertWord(currentLine);
+                }
+
+
+                double startTime = System.nanoTime();
+                trie.countNils() ;
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println("Nb de mots : " + countWord);
+
+                writer.write(trie.nbnodes + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testProfondeurOfPatriciaTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("height_times_pat.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                PatriciaTrie trie = new PatriciaTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insertWord(currentLine);
+                }
+
+
+                double startTime = System.nanoTime();
+                trie.height();
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println("Nb de mots : " + countWord);
+
+                writer.write(trie.nbnodes + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testHeightMeanOfPatriciaTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("meanHeight_times_pat.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                PatriciaTrie trie = new PatriciaTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insertWord(currentLine);
+                }
+
+
+                double startTime = System.nanoTime();
+                trie.MeanHeight() ;
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println("Nb de mots : " + countWord);
+
+                writer.write(trie.nbnodes + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
+
+    @Test
+    public void testListeMotsOfPatriciaTrie() {
+        assertNotNull(folder,"Aucun répertoire trouvé");
+        File[] listOfFiles = folder.listFiles((dir, name) -> name.endsWith(".txt"));
+
+        // Vérifie que des fichiers ont été trouvés
+        assertNotNull(listOfFiles,"Aucun fichier trouvé");
+
+        File outputFile = new File("listeMots_times_pat.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        // Parcourt tous les fichiers .txt
+        for (File file : Objects.requireNonNull(listOfFiles)) {
+            System.out.println("*****************************************************************************************");
+            System.out.println("File : " + file.getAbsolutePath());
+            try (Scanner scan = new Scanner(file)) {
+                Set<String> contient = new HashSet<>();
+                PatriciaTrie trie = new PatriciaTrie();
+        
+                while (scan.hasNextLine()) {
+                    String currentLine = scan.nextLine();
+
+                    contient.add(currentLine);
+
+                    trie.insertWord(currentLine);
+                }
+
+
+                double startTime = System.nanoTime();
+                List<String> liste = trie.getWords() ;
+                double endTime = System.nanoTime();
+
+                //assertEquals(countWord,contient.size(), "Ne contient pas le même nombre de mots");
+                //System.out.println("Nb de mots : " + countWord);
+
+                for(String word : liste){
+                    assertTrue(contient.contains(word),"Le mot ne fait pas partie du fichier de base");
+                }
+                writer.write(trie.nbnodes + " " + (endTime - startTime)/100000.0);
+                writer.newLine();
+
+                //System.out.println("La méthode de recherche est bien fonctionnelle, tous les mots de l'arbre ont été trouvés");
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        }catch(IOException e){
+            e.getStackTrace();
+        }
+    }
     @Test
     public void testFusionPatriciaTrie(){
 

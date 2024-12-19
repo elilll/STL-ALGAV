@@ -21,8 +21,6 @@ public class ParseJson {
                     switch(entry.getKey()){
                         case "label": 
                             if(String.valueOf(entry.getValue()).length() >= 1){
-                                PatriciaTrieNode newNode = new PatriciaTrieNode();
-
                                 byte[] bytes = String.valueOf(entry.getValue()).getBytes(StandardCharsets.US_ASCII);
                                 for(byte b : bytes){
                                     if(b < 0 || b > 127){
@@ -30,7 +28,9 @@ public class ParseJson {
                                     }
                                 }
 
-                                currentNode.addChild(String.valueOf(entry.getValue()), newNode);
+                                PatriciaTrieNode newNode = new PatriciaTrieNode(String.valueOf(entry.getValue()));
+
+                                currentNode.addChild(newNode);
                                 currentNode = newNode;
                             }
                             break;

@@ -83,6 +83,13 @@ public class HybridTrie {
      * @return : true si le mot est présent dans le trie, false sinon
      */
     public boolean recherche(String word){
+        byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
+        for(byte b : bytes){
+            if(b < 0 || b > 127){
+                throw new IllegalArgumentException("Caractère non supporté : " + Byte.toString(b) + " (code ascii : " + b +")");
+            }
+        }
+
         return rechercheRec(root, word, 0);
     }
 
@@ -344,6 +351,13 @@ public class HybridTrie {
      * @param word : le mot à supprimer
      */
     public void suppression(String word){
+        byte[] bytes = word.getBytes(StandardCharsets.US_ASCII);
+        for(byte b : bytes){
+            if(b < 0 || b > 127){
+                throw new IllegalArgumentException("Caractère non supporté : " + Byte.toString(b) + " (code ascii : " + b +")");
+            }
+        }
+
         if(recherche(word) == true){
             root = suppressionRec(root, word, 0);
         }else{

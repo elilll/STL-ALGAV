@@ -15,6 +15,7 @@ public class HybridTrie {
     public int cmplx_profondeur;
     public int cmplx_prefixe;
     public int cmplx_suppression;
+    public int cmplx_reequilibrage;
     public int nb_node;
 
     //Constantes
@@ -37,6 +38,7 @@ public class HybridTrie {
         this.cmplx_recherche = 0;
         this.cmplx_suppression = 0;
         this.nb_node = 0;
+        this.cmplx_reequilibrage = 0;
     }
 
     //Getteur et Setteur
@@ -69,7 +71,7 @@ public class HybridTrie {
         if(recherche(word) == false){
             root = insertRec(root, word, 0, balance);
             //On affiche la complexité après chaque ajout
-            //System.out.println("Complexité de l'ajout du mot " + word + " : " + cmplx_insert);
+            System.out.println("Complexité de l'ajout du mot " + word + " : " + cmplx_insert);
         }
     }
 
@@ -115,7 +117,7 @@ public class HybridTrie {
         cmplx_recherche = 0; // A chaque appel de la fonction, on réinitialise la complexité
         boolean found = rechercheRec(root, word, 0);
         //On affiche la complexité après chaque recherche
-        //System.out.println("Complexité de la recherche du mot " + word + " : " + cmplx_recherche);
+        System.out.println("Complexité de la recherche du mot " + word + " : " + cmplx_recherche);
         return found;
     }
 
@@ -155,7 +157,7 @@ public class HybridTrie {
         cmplx_comptage_mots = 0;
         int res = comptageMotsRec(root);
         //On affiche la complexité finale
-        //System.out.println("Complexité de comptage des mots dans le trie : " + cmplx_comptage_mots);
+        System.out.println("Complexité de comptage des mots dans le trie : " + cmplx_comptage_mots);
         return res;
     }
 
@@ -194,7 +196,7 @@ public class HybridTrie {
         StringBuilder prefixe = new StringBuilder();
         List<String> finalList = listeMotsRec(root, prefixe);
         //On affiche la complexité finale
-        //System.out.println("Complexité de la création de la liste des mots : " + cmplx_liste_mots);
+        System.out.println("Complexité de la création de la liste des mots : " + cmplx_liste_mots);
         return finalList;
     }
 
@@ -248,7 +250,7 @@ public class HybridTrie {
         }
         int nils = comptageNilRec(root);
         //On affiche la complexité finale
-        //System.out.println("Complexité du calcul du nombre de Nils : " + cmplx_comptage_nils);
+        System.out.println("Complexité du calcul du nombre de Nils : " + cmplx_comptage_nils);
         return nils;
     }
 
@@ -289,7 +291,7 @@ public class HybridTrie {
         cmplx_hauteur = 0;
         int hauteur = hauteurRec(root);
         //On affiche la complexité finale
-        //System.out.println("Complexité du calcul de la hauteur : " + cmplx_hauteur);
+        System.out.println("Complexité du calcul de la hauteur : " + cmplx_hauteur);
         return hauteur;
     }
 
@@ -327,7 +329,7 @@ public class HybridTrie {
             return 0; // Pour ne pas diviser par 0 (cas où on n'a pas de feuilles == trie vide)
         }
         //On affiche la complexité finale
-        //System.out.println("Complexité du calcul de la profondeur moyenne des feuilles : " + cmplx_profondeur);
+        System.out.println("Complexité du calcul de la profondeur moyenne des feuilles : " + cmplx_profondeur);
         return result[0] / result[1];
     }
     
@@ -379,9 +381,9 @@ public class HybridTrie {
         int res = comptageMotsRec(node);
 
         //On affiche la complexité finale
-        // System.out.println("Complexité pour le parcours du préfixe : " + cmplx_prefixe);
-        // System.out.println("Complexité pour le comptage des mots : " + cmplx_comptage_mots);
-        // System.out.println("Complexité totale pour le prefixe " + word + " : " + (cmplx_prefixe + cmplx_comptage_mots));
+        System.out.println("Complexité pour le parcours du préfixe : " + cmplx_prefixe);
+        System.out.println("Complexité pour le comptage des mots : " + cmplx_comptage_mots);
+        System.out.println("Complexité totale pour le prefixe " + word + " : " + (cmplx_prefixe + cmplx_comptage_mots));
 
         return res;
     }
@@ -423,7 +425,7 @@ public class HybridTrie {
         if(recherche(word) == true){
             root = suppressionRec(root, word, 0);
             //On affiche la complexité finale
-            //System.out.println("Complexité de la suppression du mot " + word + " : " + cmplx_suppression);
+            System.out.println("Complexité de la suppression du mot " + word + " : " + cmplx_suppression);
         }else{
             System.out.println("Le mot que vous cherchez à supprimer n'existe pas dans le trie hybride");
         }
@@ -488,6 +490,9 @@ public class HybridTrie {
         if (node == null) {
             return 1; 
         }
+
+        cmplx_reequilibrage++;
+
         return 1 + Math.max(
             hauteurNoeud(node.getPointeurs()[HybridTrieNode.INF]), 
             hauteurNoeud(node.getPointeurs()[HybridTrieNode.SUP])
@@ -525,6 +530,8 @@ public class HybridTrie {
      * @return : l'arbre rééquilibré
      */
     private HybridTrieNode reequilibrer(HybridTrieNode node) {
+        cmplx_reequilibrage = 0;
+        
         if (node == null) {
             return null;
         }
@@ -550,6 +557,9 @@ public class HybridTrie {
             node = rotationGauche(node);
         }
     
+        //On affiche la complexité finale
+        System.out.println("Complexité pour le rééquilibrage : " + cmplx_reequilibrage);
+        
         return node;
     }
     

@@ -47,11 +47,12 @@ public class HybridTrieTest {
     @Test
     public void testHybridTrieFunctions(){
         //Insertion
-        arbre.insert("car");
-        arbre.insert("cat");
-        arbre.insert("cart");
-        arbre.insert("dog");
-        arbre.insert("bat");
+        arbre.insert("car", HybridTrie.NON_BALANCED);
+        arbre.insert("cat", HybridTrie.NON_BALANCED);
+        arbre.insert("cart", HybridTrie.NON_BALANCED);
+        arbre.insert("dog", HybridTrie.NON_BALANCED);
+        arbre.insert("bat", HybridTrie.NON_BALANCED);
+        System.out.println("Nombre de noeuds dans l'arbre : " + arbre.nb_node);
 
         //Recherche
         assertTrue(arbre.recherche("cat"));
@@ -93,7 +94,7 @@ public class HybridTrieTest {
     
     @Test
     public void testHybridTrieBuildJson(){
-        File file = new File("src/test/java/com/example/Samples/formatTxt/lettres.txt");
+        File file = new File("src/test/java/com/example/Samples/formatTxt/ExempleDeBase.txt");
 
         // Vérifie que des fichiers ont été trouvés
         assertNotNull(file,"Aucun fichier trouvé");
@@ -112,7 +113,7 @@ public class HybridTrieTest {
                 contient.add(currentLine);
 
 
-                trie.insert(currentLine);
+                trie.insert(currentLine, HybridTrie.BALANCED);
             }
 
             System.out.println("File : " + contient.size() + "mots | Hybrid Trie : " + trie.comptageMots()+" mots");
@@ -175,7 +176,7 @@ public class HybridTrieTest {
                         String currentLine = scan.nextLine();
 
                         double startTime = System.nanoTime();
-                        trie.insert(currentLine);
+                        trie.insert(currentLine, HybridTrie.NON_BALANCED);
                         double endTime = System.nanoTime();
 
                         double time = (endTime - startTime);
@@ -256,7 +257,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine);
+                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -308,7 +309,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine);
+                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
                 }
 
                 Iterator<String> it = contient.iterator();
@@ -360,7 +361,7 @@ public class HybridTrieTest {
 
                     contient.add(currentLine);
 
-                    trie.insert(currentLine);
+                    trie.insert(currentLine, HybridTrie.NON_BALANCED);
                 }
 
                 double startTime = System.nanoTime();
